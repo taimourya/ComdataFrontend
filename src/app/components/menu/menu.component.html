@@ -1,2 +1,24 @@
+<div id="wrapper">
 
-<router-outlet></router-outlet>
+  <app-side-bar *ngIf="isAuth && role !== 'collaborateur' && navState"></app-side-bar>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <app-top-bar *ngIf="isAuth"></app-top-bar>
+
+      <!-- Container Fluid-->
+      <div class="container-fluid" id="container-wrapper">
+
+        <div>
+          <router-outlet></router-outlet>
+        </div>
+
+
+      </div>
+      <!---Container Fluid-->
+    </div>
+
+    <app-footer *ngIf="isAuth && role !== 'collaborateur'"></app-footer>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+
+
+
+<div class="card mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Ajouter un utilisateur</h6>
+    <a routerLink="/users" class="btn btn-primary">Retour<i class="fas fa-fw fa-forward ml-2"></i></a>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="nom">nom</label>
+            <input type="text" class="form-control" id="nom" aria-describedby="emailHelp"
+                   placeholder="nom" ngModel required name="nom">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="prenom">prenom</label>
+            <input type="text" class="form-control" id="prenom" aria-describedby="emailHelp"
+                   placeholder="prenom"  ngModel required name="prenom">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="email">email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                   placeholder="email"   ngModel required name="email">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="phone">phone</label>
+            <input type="text" class="form-control" id="phone" aria-describedby="emailHelp"
+                   placeholder="phone"  ngModel required name="phone">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="cin">cin</label>
+            <input type="text" class="form-control" id="cin" aria-describedby="emailHelp"
+                   placeholder="cin"  ngModel required name="cin">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="adresse">adresse</label>
+            <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp"
+                   placeholder="adresse"  ngModel required name="adresse">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="password">mot de passe</label>
+            <input type="password" class="form-control" id="password" aria-describedby="emailHelp"
+                   placeholder="mot de passe"  ngModel required name="passwd">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="confirmPasswd">confirmation du mot de passe</label>
+            <input type="password" class="form-control" id="confirmPasswd" aria-describedby="emailHelp"
+                   placeholder="confirmation du mot de passe" ngModel required name="confimrPasswd">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="date_naissance">date naissance</label>
+        <input type="date" class="form-control" id="date_naissance" aria-describedby="emailHelp"
+               placeholder="date naissance" ngModel required name="date_naissance">
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="role">role</label>
+            <select class="form-control" id="role" aria-describedby="emailHelp"
+                    [(ngModel)]="role" required name="role">
+              <option value="admin">admin</option>
+              <option value="superviseur">superviseur</option>
+              <option value="collaborateur">collaborateur</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group" *ngIf="role != 'admin'">
+            <label for="activiter">activiter</label>
+            <select class="form-control" id="activiter" aria-describedby="emailHelp"
+                    ngModel required name="activiter">
+              <option value="1">UBER</option>
+              <option value="2">Orange</option>
+              <option value="3">Comdata</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!f.valid" class="btn btn-primary">Valider<i class="fas fa-fw fa-check ml-2"></i></button>
+    </form>
+  </div>
+</div>

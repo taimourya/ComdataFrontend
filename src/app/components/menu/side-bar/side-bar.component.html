@@ -1,0 +1,44 @@
+<!-- Sidebar -->
+<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html" style="background: #0c2c36">
+    <div class="sidebar-brand-icon">
+      <img src="assets/img/logo/logo-comdata.png">
+    </div>
+    <div class="sidebar-brand-text mx-3">Comdata</div>
+  </a>
+  <hr class="sidebar-divider my-0">
+  <li class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a>
+  </li>
+  <hr class="sidebar-divider">
+  <div class="sidebar-heading">
+    Gestion
+  </div>
+  <li class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="users">
+      <i class="fas fa-fw fas fa-users"></i>
+      <span>Utilisateurs</span>
+    </a>
+  </li>
+  <li class="nav-item" routerLinkActive="active" *ngIf="role === 'admin'">
+    <a class="nav-link" routerLink="activites">
+      <i class="fas fa-fw fa-code-branch"></i>
+      <span>Activités</span>
+    </a>
+  </li>
+  <hr class="sidebar-divider">
+  <div class="sidebar-heading">
+    Settings
+  </div>
+  <li class="nav-item" routerLinkActive="active" *ngIf="role === 'superviseur'">
+    <a class="nav-link" routerLink="settings">
+      <i class="fas fa-fw fas fa-cog"></i>
+      <span>Settings</span>
+    </a>
+  </li>
+  <hr class="sidebar-divider">
+  <div class="version" id="version-ruangadmin"></div>
+</ul>
+<!-- Sidebar -->

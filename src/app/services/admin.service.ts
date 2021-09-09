@@ -113,4 +113,11 @@ export class AdminService {
     });
   }
 
+  public fetchTempsCollaborateur(matricule: string) {
+    return this.http.get(Api.host + '/admin/collaborateur/temps' +
+      '?matricule=' + matricule, {
+      headers: this.httpHeader()
+    });
+  }
+
 }

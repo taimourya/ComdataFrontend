@@ -1,0 +1,220 @@
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Table des utilisateurs</h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item">Gestion</li>
+      <li class="breadcrumb-item active" aria-current="page">Utilisateurs</li>
+    </ol>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+
+
+      <div class="card">
+        <div class="card-body">
+          <div class="filters">
+            <div class="row">
+              <div class="col-2">
+                <div class="form-group">
+                  <label>etat compte</label>
+                  <select name="" class="form-control" [(ngModel)]="filterEtatCompte" (change)="onFilterChange()">
+                    <option value="All">All</option>
+                    <option value="activer">Activer</option>
+                    <option value="desactiver">Desactiver</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="form-group">
+                  <label>type de compte</label>
+                  <select name="" class="form-control" [(ngModel)]="filterTypeCompte" (change)="onFilterChange()">
+                    <option value="All">All</option>
+                    <option value="admin">Admin</option>
+                    <option value="superviseur">Supérviseur</option>
+                    <option value="collaborateur">Collaborateur</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-2" *ngIf="filterTypeCompte == 'collaborateur' || filterTypeCompte == 'superviseur'">
+                <div class="form-group">
+                  <label>Activité</label>
+                  <select name="" class="form-control"  [(ngModel)]="filterActiviter" (change)="onFilterChange()">
+                    <option value="-1">All</option>
+                    <option value="1">UBER</option>
+                    <option value="2">Orange</option>
+                    <option value="3">Comdata</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-2" *ngIf="filterTypeCompte == 'collaborateur'">
+                <div class="form-group">
+                  <label>Session</label>
+                  <select class="form-control"[(ngModel)]="filterSession" (change)="onFilterChange()">
+                    <option value="All">All</option>
+                    <option value="actif">Actif</option>
+                    <option value="inactif">Inactif</option>
+                    <option value="pause">Pause</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Simple Tables -->
+      <div class="card">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Table des utilisateurs</h6>
+          <a href="" class="btn btn-primary" routerLink="/addUser">
+            <i class="fas fa-fw fa-plus"></i>
+            Ajouter un nouveau utilisateur
+          </a>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th>Matricule</th>
+                <th>Fullname</th>
+                <th>Téléphone</th>
+                <th>Cin</th>
+                <th>naissance</th>
+                <th>active</th>
+                <th>role</th>
+                <th>activité</th>
+                <th>action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a [routerLink]="['/user/'+1]">RfAvfd0449</a></td>
+                <td>yahya taimourya</td>
+                <td>0643334135</td>
+                <td>BE902884</td>
+                <td>1998/11/19</td>
+                <td><span class="badge badge-success">Oui</span></td>
+                <td>admin</td>
+                <td></td>
+                <td>
+                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td><a [routerLink]="['/user/'+2]">RfFdrf0449</a></td>
+                <td>yahya taimourya</td>
+                <td>0643334135</td>
+                <td>BE902884</td>
+                <td>1998/11/19</td>
+                <td><span class="badge badge-success">Oui</span></td>
+                <td>admin</td>
+                <td></td>
+                <td>
+                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td><a [routerLink]="['/user/'+3]">RfFdrf0449</a></td>
+                <td>yahya taimourya</td>
+                <td>0643334135</td>
+                <td>BE902884</td>
+                <td>1998/11/19</td>
+                <td><span class="badge badge-danger">Non</span></td>
+                <td>collaborateur</td>
+                <td><a [routerLink]="['/activiter/'+1]">UBER</a></td>
+                <td>
+                  <a href="#" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td><a [routerLink]="['/user/'+4]">RfFdrf0449</a></td>
+                <td>yahya taimourya</td>
+                <td>0643334135</td>
+                <td>BE902884</td>
+                <td>1998/11/19</td>
+                <td><span class="badge badge-success">Oui</span></td>
+                <td>admin</td>
+                <td></td>
+                <td>
+                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td><a [routerLink]="['/user/'+5]">RfFdrf0449</a></td>
+                <td>yahya taimourya</td>
+                <td>0643334135</td>
+                <td>BE902884</td>
+                <td>1998/11/19</td>
+                <td><span class="badge badge-danger">Non</span></td>
+                <td>collaborateur</td>
+                <td><a [routerLink]="['/activiter/'+1]">Orange</a></td>
+                <td>
+                  <a href="#" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td><a [routerLink]="['/user/'+6]">RfFdrf0449</a></td>
+                <td>yahya taimourya</td>
+                <td>0643334135</td>
+                <td>BE902884</td>
+                <td>1998/11/19</td>
+                <td><span class="badge badge-success">Oui</span></td>
+                <td>supérviseur</td>
+                <td><a [routerLink]="['/activiter/'+1]">UBER</a></td>
+                <td>
+                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td><a [routerLink]="['/user/'+7]">RfFdrf0449</a></td>
+                <td>yahya taimourya</td>
+                <td>0643334135</td>
+                <td>BE902884</td>
+                <td>1998/11/19</td>
+                <td><span class="badge badge-success">Oui</span></td>
+                <td>admin</td>
+                <td></td>
+                <td>
+                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer">
+          <!-- pagination -->
+          <nav aria-label="Page navigation" *ngIf="totalPages > 1">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" (click)="onPagePrevious()" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+
+              <li *ngFor="let item of [].constructor(totalPages) let i = index" class="page-item" [ngClass]="{'active': i == page}">
+                <a class="page-link" (click)="onPageClick(i)">{{ i + 1 }}</a>
+              </li>
+
+              <li class="page-item">
+                <a class="page-link" (click)="onPageNext()" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- fin pagination -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Row-->
+
+
+</div>
+<!---Container Fluid-->

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Api} from "../constants/api.constant";
 import {AuthService} from "./auth.service";
 import {webSocket} from "rxjs/webSocket";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,23 @@ export class WebSocketService {
 
   private websocket: any;
 
-  public isOpen: boolean = false;
-  public tActif: number = 0;
-  public tPause: number = 0;
-  public tInactif: number = 0;
+  tempsSubject = new Subject<any>();
+
+  private isOpen: boolean = false;
+  private tActif: number = 0;
+  private tPause: number = 0;
+  private tInactif: number = 0;
 
   constructor(private authService: AuthService) {
 
+  }
+
+  private emitTempsSubject() {
+    this.tempsSubject.next({
+      tActif: this.tActif,
+      tPause: this.tPause,
+      tInactif: this.tInactif
+    });
   }
 
   public start() {
@@ -36,7 +47,8 @@ export class WebSocketService {
         this.tActif = parseInt(tmps[0].trim());
         this.tPause = parseInt(tmps[1].trim());
         this.tInactif = parseInt(tmps[2].trim());
-        console.log(this.tActif + " : " + this.tPause + " : " + this.tInactif)
+        console.log(this.tActif + " : " + this.tPause + " : " + this.tInactif);
+        this.emitTempsSubject();
       }
       else if(event.data === 'success jwt') {
         this.isOpen = true;

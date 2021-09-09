@@ -1,0 +1,118 @@
+
+
+
+    <div class="card mb-4">
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">
+          User details
+          <button class="btn btn-info ml-3" (click)="onClickEdit()"><i class="fas fa-fw fa-edit"></i></button>
+          <button class="btn btn-danger ml-3" [routerLink]="['/collaborateurTemps/'+1]"><i class="fas fa-fw fa-chart-area"></i></button>
+        </h6>
+        <a routerLink="/users" class="btn btn-primary">Retour<i class="fas fa-fw fa-forward ml-2"></i></a>
+      </div>
+      <div class="card-body">
+        <h5 class="text-primary">Ce compte est
+          <b [ngClass]="{'text-success': userData.isActive, 'text-danger': !userData.isActive}">
+            {{ userData.isActive? 'activer':'desactiver' }}
+          </b>
+          vous pouvez {{ userData.isActive? 'le désactiver':'l\'activer' }} en cliquant sur
+          <a *ngIf="userData.isActive" href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
+          <a *ngIf="!userData.isActive" href="#" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></a>
+        </h5>
+        <h5 class="text-primary">Compte <b class="text-success">{{ userData.roleName}}</b></h5>
+        <div>
+          <div class="form-group">
+            <label for="matricule">matricule</label>
+            <input type="text" class="form-control" id="matricule" aria-describedby="emailHelp"
+                   placeholder="matricule" [(ngModel)]="userData.matricule" disabled>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="nom">nom</label>
+                <input type="text" class="form-control" id="nom" aria-describedby="emailHelp"
+                       placeholder="nom" [(ngModel)]="userData.lastname" [disabled]="!editMode">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="prenom">prenom</label>
+                <input type="text" class="form-control" id="prenom" aria-describedby="emailHelp"
+                       placeholder="prenom" [(ngModel)]="userData.firstname" [disabled]="!editMode">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="email">email</label>
+                <input type="text" class="form-control" id="email" aria-describedby="emailHelp"
+                       placeholder="email" [(ngModel)]="userData.email" [disabled]="!editMode">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="phone">phone</label>
+                <input type="text" class="form-control" id="phone" aria-describedby="emailHelp"
+                       placeholder="phone" [(ngModel)]="userData.phone" [disabled]="!editMode">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="cin">cin</label>
+                <input type="text" class="form-control" id="cin" aria-describedby="emailHelp"
+                       placeholder="cin" [(ngModel)]="userData.cin" [disabled]="!editMode">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="adresse">adresse</label>
+                <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp"
+                       placeholder="adresse" [(ngModel)]="userData.adresse" [disabled]="!editMode">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="date_naissance">date naissance</label>
+                <input type="date" class="form-control" id="date_naissance" aria-describedby="emailHelp"
+                       placeholder="date naissance" [(ngModel)]="userData.date_naissance" [disabled]="!editMode">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="date_creation">date creation</label>
+                <input type="date" class="form-control" id="date_creation" aria-describedby="emailHelp"
+                       placeholder="date creation" [(ngModel)]="userData.date_creation" disabled>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="editMode">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="password">mot de passe</label>
+                <input type="password" class="form-control" id="password" aria-describedby="emailHelp"
+                       placeholder="mot de passe" [(ngModel)]="userData.passwd">
+                <span class="text-primary">laisser vide si vous ne voulez pas changer le mot de passe</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="confirmPasswd">confirmation du mot de passe</label>
+                <input type="password" class="form-control" id="confirmPasswd" aria-describedby="emailHelp"
+                       placeholder="confirmation du mot de passe" [(ngModel)]="userData.confirmPasswd">
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" [disabled]="!editMode">Valider<i class="fas fa-fw fa-check ml-2"></i></button>
+        </div>
+      </div>
+    </div>
