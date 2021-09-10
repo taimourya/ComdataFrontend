@@ -71,7 +71,7 @@
           <div class="form-group">
             <label for="confirmPasswd">confirmation du mot de passe</label>
             <input type="password" class="form-control" id="confirmPasswd" aria-describedby="emailHelp"
-                   placeholder="confirmation du mot de passe" ngModel required name="confimrPasswd">
+                   placeholder="confirmation du mot de passe" ngModel required name="confirmPasswd">
           </div>
         </div>
       </div>
@@ -82,12 +82,12 @@
                placeholder="date naissance" ngModel required name="date_naissance">
       </div>
 
-      <div class="row">
+      <div class="row" *ngIf="role == 'admin'">
         <div class="col-6">
           <div class="form-group">
             <label for="role">role</label>
             <select class="form-control" id="role" aria-describedby="emailHelp"
-                    [(ngModel)]="role" required name="role">
+                    [(ngModel)]="roleForm" required name="role">
               <option value="admin">admin</option>
               <option value="superviseur">superviseur</option>
               <option value="collaborateur">collaborateur</option>
@@ -95,7 +95,7 @@
           </div>
         </div>
         <div class="col-6">
-          <div class="form-group" *ngIf="role != 'admin'">
+          <div class="form-group" *ngIf="roleForm != 'admin'">
             <label for="activiter">activiter</label>
             <select class="form-control" id="activiter" aria-describedby="emailHelp"
                     ngModel required name="activiter">

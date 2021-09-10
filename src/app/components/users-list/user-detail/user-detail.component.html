@@ -1,5 +1,17 @@
 
 
+    <div class="alert alert-success alert-dismissible" role="alert" *ngIf="messageSuccess != ''">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeMessage()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{messageSuccess}}
+    </div>
+    <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="messageFailed != ''">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeMessage()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{messageFailed}}
+    </div>
 
     <div class="card mb-4">
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -12,33 +24,33 @@
       </div>
       <div class="card-body">
         <h5 class="text-primary">Ce compte est
-          <b [ngClass]="{'text-success': userData.isActive, 'text-danger': !userData.isActive}">
-            {{ userData.isActive? 'activer':'desactiver' }}
+          <b [ngClass]="{'text-success': userData.active, 'text-danger': !userData.active}">
+            {{ userData.active? 'activer':'desactiver' }}
           </b>
           vous pouvez {{ userData.isActive? 'le désactiver':'l\'activer' }} en cliquant sur
-          <a *ngIf="userData.isActive" href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
-          <a *ngIf="!userData.isActive" href="#" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></a>
+          <button *ngIf="userData.active" (click)="onDisable()" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></button>
+          <button *ngIf="!userData.active" (click)="onEnable()" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></button>
         </h5>
         <h5 class="text-primary">Compte <b class="text-success">{{ userData.roleName}}</b></h5>
-        <div>
+        <form  (ngSubmit)="onSubmit(f)" #f="ngForm">
           <div class="form-group">
             <label for="matricule">matricule</label>
             <input type="text" class="form-control" id="matricule" aria-describedby="emailHelp"
-                   placeholder="matricule" [(ngModel)]="userData.matricule" disabled>
+                   placeholder="matricule" [value]="userData.matricule" disabled name="matricule">
           </div>
           <div class="row">
             <div class="col-6">
               <div class="form-group">
                 <label for="nom">nom</label>
                 <input type="text" class="form-control" id="nom" aria-describedby="emailHelp"
-                       placeholder="nom" [(ngModel)]="userData.lastname" [disabled]="!editMode">
+                       placeholder="nom" [(ngModel)]="userData.lastname" [disabled]="!editMode" required name="nom">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="prenom">prenom</label>
                 <input type="text" class="form-control" id="prenom" aria-describedby="emailHelp"
-                       placeholder="prenom" [(ngModel)]="userData.firstname" [disabled]="!editMode">
+                       placeholder="prenom" [(ngModel)]="userData.firstname" [disabled]="!editMode" required name="prenom">
               </div>
             </div>
           </div>
@@ -48,14 +60,14 @@
               <div class="form-group">
                 <label for="email">email</label>
                 <input type="text" class="form-control" id="email" aria-describedby="emailHelp"
-                       placeholder="email" [(ngModel)]="userData.email" [disabled]="!editMode">
+                       placeholder="email" [(ngModel)]="userData.email" [disabled]="!editMode" required name="email">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="phone">phone</label>
                 <input type="text" class="form-control" id="phone" aria-describedby="emailHelp"
-                       placeholder="phone" [(ngModel)]="userData.phone" [disabled]="!editMode">
+                       placeholder="phone" [(ngModel)]="userData.phone" [disabled]="!editMode" required name="phone">
               </div>
             </div>
           </div>
@@ -65,14 +77,14 @@
               <div class="form-group">
                 <label for="cin">cin</label>
                 <input type="text" class="form-control" id="cin" aria-describedby="emailHelp"
-                       placeholder="cin" [(ngModel)]="userData.cin" [disabled]="!editMode">
+                       placeholder="cin" [(ngModel)]="userData.cin" [disabled]="!editMode" required name="cin">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="adresse">adresse</label>
                 <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp"
-                       placeholder="adresse" [(ngModel)]="userData.adresse" [disabled]="!editMode">
+                       placeholder="adresse" [(ngModel)]="userData.adresse" [disabled]="!editMode" required name="adresse">
               </div>
             </div>
           </div>
@@ -82,14 +94,14 @@
               <div class="form-group">
                 <label for="date_naissance">date naissance</label>
                 <input type="date" class="form-control" id="date_naissance" aria-describedby="emailHelp"
-                       placeholder="date naissance" [(ngModel)]="userData.date_naissance" [disabled]="!editMode">
+                       placeholder="date naissance" [(ngModel)]="userData.date_naissance" [disabled]="!editMode" required name="date_naissance">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="date_creation">date creation</label>
-                <input type="date" class="form-control" id="date_creation" aria-describedby="emailHelp"
-                       placeholder="date creation" [(ngModel)]="userData.date_creation" disabled>
+                <input type="text" class="form-control" id="date_creation" aria-describedby="emailHelp"
+                       placeholder="date creation" [value]="userData.date_creation | date :'yyyy-dd-mm & HH:mm'" disabled name="date_creation">
               </div>
             </div>
           </div>
@@ -99,7 +111,7 @@
               <div class="form-group">
                 <label for="password">mot de passe</label>
                 <input type="password" class="form-control" id="password" aria-describedby="emailHelp"
-                       placeholder="mot de passe" [(ngModel)]="userData.passwd">
+                       placeholder="mot de passe" [(ngModel)]="userData.passwd" name="passwd">
                 <span class="text-primary">laisser vide si vous ne voulez pas changer le mot de passe</span>
               </div>
             </div>
@@ -107,12 +119,12 @@
               <div class="form-group">
                 <label for="confirmPasswd">confirmation du mot de passe</label>
                 <input type="password" class="form-control" id="confirmPasswd" aria-describedby="emailHelp"
-                       placeholder="confirmation du mot de passe" [(ngModel)]="userData.confirmPasswd">
+                       placeholder="confirmation du mot de passe" [(ngModel)]="userData.confirmPasswd" name="confirmPasswd">
               </div>
             </div>
           </div>
 
           <button type="submit" class="btn btn-primary" [disabled]="!editMode">Valider<i class="fas fa-fw fa-check ml-2"></i></button>
-        </div>
+        </form>
       </div>
     </div>

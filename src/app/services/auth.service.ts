@@ -35,6 +35,8 @@ export class AuthService {
     this.afterSetRole.next(role);
   }
 
+
+
   login(matricule: string, password: string) {
     return this.http.post(Api.host + "/login",
       {
@@ -57,6 +59,15 @@ export class AuthService {
   fetchProfil() {
     let token = this.getToken();
     return this.http.get(Api.host + '/user/profil', {
+      headers: new HttpHeaders({
+        'Authorization': token!
+      })
+    });
+  }
+
+  editProfil(form: any) {
+    let token = this.getToken();
+    return this.http.put(Api.host + '/user/profil/edit', form, {
       headers: new HttpHeaders({
         'Authorization': token!
       })

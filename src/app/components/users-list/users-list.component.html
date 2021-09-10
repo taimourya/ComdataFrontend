@@ -12,6 +12,18 @@
   <div class="row">
     <div class="col-lg-12 mb-4">
 
+      <div class="alert alert-success alert-dismissible" role="alert" *ngIf="messageSuccess != ''">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeMessage()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{messageSuccess}}
+      </div>
+      <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="messageFailed != ''">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeMessage()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{messageFailed}}
+      </div>
 
       <div class="card">
         <div class="card-body">
@@ -27,7 +39,7 @@
                   </select>
                 </div>
               </div>
-              <div class="col-2">
+              <div class="col-2" *ngIf="role =='admin'">
                 <div class="form-group">
                   <label>type de compte</label>
                   <select name="" class="form-control" [(ngModel)]="filterTypeCompte" (change)="onFilterChange()">
@@ -38,18 +50,16 @@
                   </select>
                 </div>
               </div>
-              <div class="col-2" *ngIf="filterTypeCompte == 'collaborateur' || filterTypeCompte == 'superviseur'">
+              <div class="col-2" *ngIf="(filterTypeCompte == 'collaborateur' || filterTypeCompte == 'superviseur') && role == 'admin'">
                 <div class="form-group">
                   <label>Activité</label>
                   <select name="" class="form-control"  [(ngModel)]="filterActiviter" (change)="onFilterChange()">
                     <option value="-1">All</option>
-                    <option value="1">UBER</option>
-                    <option value="2">Orange</option>
-                    <option value="3">Comdata</option>
+                    <option *ngFor="let a of activites" [ngValue]="a.id">{{a.nom}}</option>
                   </select>
                 </div>
               </div>
-              <div class="col-2" *ngIf="filterTypeCompte == 'collaborateur'">
+              <div class="col-2" *ngIf="filterTypeCompte == 'collaborateur' && role == 'admin'">
                 <div class="form-group">
                   <label>Session</label>
                   <select class="form-control"[(ngModel)]="filterSession" (change)="onFilterChange()">
@@ -61,10 +71,21 @@
                 </div>
               </div>
             </div>
+
+            <div class="form-group">
+              <label>nombre par page</label>
+              <select name="" class="form-control" style="width: 75px" (change)="onFilterChange()" [(ngModel)]="size">
+                <option value="5">5</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+
           </div>
         </div>
       </div>
-
 
       <!-- Simple Tables -->
       <div class="card">
@@ -91,95 +112,37 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><a [routerLink]="['/user/'+1]">RfAvfd0449</a></td>
-                <td>yahya taimourya</td>
-                <td>0643334135</td>
-                <td>BE902884</td>
-                <td>1998/11/19</td>
-                <td><span class="badge badge-success">Oui</span></td>
-                <td>admin</td>
+              <tr *ngIf="isLoading">
                 <td></td>
-                <td>
-                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td><a [routerLink]="['/user/'+2]">RfFdrf0449</a></td>
-                <td>yahya taimourya</td>
-                <td>0643334135</td>
-                <td>BE902884</td>
-                <td>1998/11/19</td>
-                <td><span class="badge badge-success">Oui</span></td>
-                <td>admin</td>
                 <td></td>
-                <td>
-                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td><a [routerLink]="['/user/'+3]">RfFdrf0449</a></td>
-                <td>yahya taimourya</td>
-                <td>0643334135</td>
-                <td>BE902884</td>
-                <td>1998/11/19</td>
-                <td><span class="badge badge-danger">Non</span></td>
-                <td>collaborateur</td>
-                <td><a [routerLink]="['/activiter/'+1]">UBER</a></td>
-                <td>
-                  <a href="#" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td><a [routerLink]="['/user/'+4]">RfFdrf0449</a></td>
-                <td>yahya taimourya</td>
-                <td>0643334135</td>
-                <td>BE902884</td>
-                <td>1998/11/19</td>
-                <td><span class="badge badge-success">Oui</span></td>
-                <td>admin</td>
                 <td></td>
-                <td>
-                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td><a [routerLink]="['/user/'+5]">RfFdrf0449</a></td>
-                <td>yahya taimourya</td>
-                <td>0643334135</td>
-                <td>BE902884</td>
-                <td>1998/11/19</td>
-                <td><span class="badge badge-danger">Non</span></td>
-                <td>collaborateur</td>
-                <td><a [routerLink]="['/activiter/'+1]">Orange</a></td>
-                <td>
-                  <a href="#" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td><a [routerLink]="['/user/'+6]">RfFdrf0449</a></td>
-                <td>yahya taimourya</td>
-                <td>0643334135</td>
-                <td>BE902884</td>
-                <td>1998/11/19</td>
-                <td><span class="badge badge-success">Oui</span></td>
-                <td>supérviseur</td>
-                <td><a [routerLink]="['/activiter/'+1]">UBER</a></td>
-                <td>
-                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td><a [routerLink]="['/user/'+7]">RfFdrf0449</a></td>
-                <td>yahya taimourya</td>
-                <td>0643334135</td>
-                <td>BE902884</td>
-                <td>1998/11/19</td>
-                <td><span class="badge badge-success">Oui</span></td>
-                <td>admin</td>
+                <td><div class="spinner-border text-primary"></div></td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr *ngIf="users.length == 0">
+                <td>aucun resultat</td>
+              </tr>
+              <tr *ngFor="let u of users">
+                <td><a [routerLink]="['/user/'+u.matricule]">{{u.matricule}}</a></td>
+                <td>{{u.fullName}}</td>
+                <td>{{u.phone}}</td>
+                <td>{{u.cin}}</td>
+                <td>{{u.date_naissance}}</td>
                 <td>
-                  <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
+                  <span class="badge badge-success" *ngIf="u.active">Oui</span>
+                  <span class="badge badge-danger" *ngIf="!u.active">Non</span>
+                </td>
+                <td>{{u.roleName}}</td>
+                <td>
+                  <span *ngIf="u.roleName != 'admin'">{{u.activiterName}}</span>
+                </td>
+                <td>
+                  <button (click)="onEnable(u.matricule)" class="btn btn-sm btn-success" *ngIf="!u.active"><i class="fas fa-fw fa-upload"></i></button>
+                  <button (click)="onDisable(u.matricule)" class="btn btn-sm btn-danger" *ngIf="u.active"><i class="fas fa-fw fa-download"></i></button>
                 </td>
               </tr>
             </tbody>

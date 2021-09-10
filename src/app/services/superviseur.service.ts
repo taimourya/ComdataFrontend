@@ -37,30 +37,26 @@ export class SuperviseurService {
   }
 
   public saveCollaborateur(form: any) {
-    return this.http.post(Api.host + '/superviseur/collaborateur', {
-      form
-    }, {
+    return this.http.post(Api.host + '/superviseur/collaborateur', form, {
       headers: this.httpHeader()
     });
   }
 
   public editCollaborateur(matricule: string, form: any) {
     return this.http.put(Api.host + '/superviseur/collaborateur' +
-      '?matricule'+matricule, {
-      form
-    }, {
+      '?matricule='+matricule, form, {
       headers: this.httpHeader()
     });
   }
   public enableCollaborateur(matricule: string) {
     return this.http.put(Api.host + '/superviseur/collaborateur/enable' +
-      '?matricule'+matricule, {}, {
+      '?matricule='+matricule, {}, {
       headers: this.httpHeader()
     });
   }
   public disableCollaborateur(matricule: string) {
     return this.http.put(Api.host + '/superviseur/collaborateur/disable' +
-      '?matricule'+matricule, {}, {
+      '?matricule='+matricule, {}, {
       headers: this.httpHeader()
     });
   }

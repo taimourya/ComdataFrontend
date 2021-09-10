@@ -14,6 +14,7 @@ export class TopBarComponent implements OnInit {
 
   role: string | null = '';
   fullname: string = '';
+  matricule: string = '';
 
   constructor(private searchService: SearchService,
               private navToggleService: NavToggleService,
@@ -29,6 +30,10 @@ export class TopBarComponent implements OnInit {
     this.accountService.fullNameStatus.subscribe(fullname => {
       this.fullname = fullname;
     });
+
+    this.accountService.matriculeStatus.subscribe(matricule => {
+      this.matricule = matricule;
+    })
   }
 
 

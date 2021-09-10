@@ -1,5 +1,17 @@
 
 
+<div class="alert alert-success alert-dismissible" role="alert" *ngIf="messageSuccess != ''">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeMessage()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{messageSuccess}}
+</div>
+<div class="alert alert-danger alert-dismissible" role="alert" *ngIf="messageFailed != ''">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeMessage()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{messageFailed}}
+</div>
 
 <div class="card mb-4">
   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -7,36 +19,36 @@
       Activiter details
       <button class="btn btn-info ml-3" (click)="onClickEdit()"><i class="fas fa-fw fa-edit"></i></button>
     </h6>
-    <a routerLink="/activites" class="btn btn-primary">Retour<i class="fas fa-fw fa-forward ml-2"></i></a>
+    <a routerLink="/activites" class="btn btn-primary text-white">Retour<i class="fas fa-fw fa-forward ml-2"></i></a>
   </div>
   <div class="card-body">
     <h5 class="text-primary">Cette activité est
-      <b [ngClass]="{'text-success': userData.isActive, 'text-danger': !userData.isActive}">
-        {{ userData.isActive? 'activer':'desactiver' }}
+      <b [ngClass]="{'text-success': data.active, 'text-danger': !data.active}">
+        {{ data.active? 'activer':'desactiver' }}
       </b>
-      vous pouvez {{ userData.isActive? 'le désactiver':'l\'activer' }} en cliquant sur
-      <a *ngIf="userData.isActive" href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
-      <a *ngIf="!userData.isActive" href="#" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></a>
+      vous pouvez {{ data.active? 'le désactiver':'l\'activer' }} en cliquant sur
+      <a *ngIf="data.active" href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
+      <a *ngIf="!data.active" href="#" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></a>
     </h5>
-    <div>
+    <form (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="ID">ID</label>
         <input type="text" class="form-control" id="ID" aria-describedby="emailHelp"
-               placeholder="id" [(ngModel)]="userData.id" disabled>
+               placeholder="id" [value]="data.id" disabled name="id">
       </div>
       <div class="row">
         <div class="col-6">
           <div class="form-group">
             <label for="nom">nom</label>
             <input type="text" class="form-control" id="nom" aria-describedby="emailHelp"
-                   placeholder="nom" [(ngModel)]="userData.name" [disabled]="!editMode">
+                   placeholder="nom" [(ngModel)]="data.nom" [disabled]="!editMode" name="nom">
           </div>
         </div>
         <div class="col-6">
           <div class="form-group">
             <label for="date_creation">date creation</label>
-            <input type="date" class="form-control" id="date_creation" aria-describedby="emailHelp"
-                   placeholder="date creation" [(ngModel)]="userData.date_creation" disabled>
+            <input type="text" class="form-control" id="date_creation" aria-describedby="emailHelp"
+                   placeholder="date creation" [value]="data.date_creation | date :'yyyy-dd-mm & HH:mm'" disabled name="date_creation">
           </div>
         </div>
       </div>
@@ -46,19 +58,19 @@
           <div class="form-group">
             <label for="tinactiviteMs">temps inactiviter en ms</label>
             <input type="number" class="form-control" id="tinactiviteMs" aria-describedby="emailHelp"
-                   placeholder="temps inactiviter en ms" [(ngModel)]="userData.tinactiviteMs" [disabled]="!editMode">
+                   placeholder="temps inactiviter en ms" [(ngModel)]="data.tinactiviteMs" [disabled]="!editMode" name="tinactiviteMs">
           </div>
         </div>
         <div class="col-6">
           <div class="form-group">
             <label for="tfermetureSessionMs">temps fermeture session en ms</label>
             <input type="number" class="form-control" id="tfermetureSessionMs" aria-describedby="emailHelp"
-                   placeholder="temps fermeture session en ms" [(ngModel)]="userData.tfermetureSessionMs" [disabled]="!editMode">
+                   placeholder="temps fermeture session en ms" [(ngModel)]="data.tfermetureSessionMs" [disabled]="!editMode" name="tfermetureSessionMs">
           </div>
         </div>
       </div>
 
       <button type="submit" class="btn btn-primary" [disabled]="!editMode">Valider<i class="fas fa-fw fa-check ml-2"></i></button>
-    </div>
+    </form>
   </div>
 </div>

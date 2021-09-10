@@ -19,12 +19,13 @@ export class AdminService {
   }
 
   public fetchUsers(mc: string, typeUser: string, etatCmpt: string, filterSession: string, activite_id: number, page: number, size: number) {
+
     return this.http.get(Api.host + '/admin/users' +
       '?mc=' + mc +
       '&typeUser=' + typeUser +
       '&filterEtatCmpt=' + etatCmpt +
       '&filterSession=' + filterSession+
-      '&activite_id=' + activite_id +
+      '&activiter_id=' + activite_id +
       '&page=' + page +
       '&size=' + size, {
       headers: this.httpHeader()
@@ -39,30 +40,26 @@ export class AdminService {
   }
 
   public saveUser(form: any) {
-    return this.http.post(Api.host + '/admin/user', {
-        form
-      }, {
+    return this.http.post(Api.host + '/admin/user', form, {
       headers: this.httpHeader()
     });
   }
 
   public editUser(matricule: string, form: any) {
     return this.http.put(Api.host + '/admin/user' +
-      '?matricule'+matricule, {
-      form
-    }, {
+      '?matricule='+matricule, form, {
       headers: this.httpHeader()
     });
   }
   public enableUser(matricule: string) {
     return this.http.put(Api.host + '/admin/user/enable' +
-      '?matricule'+matricule, {}, {
+      '?matricule='+matricule, {}, {
       headers: this.httpHeader()
     });
   }
   public disableUser(matricule: string) {
     return this.http.put(Api.host + '/admin/user/disable' +
-      '?matricule'+matricule, {}, {
+      '?matricule='+matricule, {}, {
       headers: this.httpHeader()
     });
   }
@@ -76,7 +73,7 @@ export class AdminService {
     });
   }
 
-  public getActivite(id: string) {
+  public getActivite(id: number) {
     return this.http.get(Api.host + '/admin/activite' +
       '?id=' + id, {
       headers: this.httpHeader()
@@ -84,31 +81,26 @@ export class AdminService {
   }
 
   public saveActivite(form: any) {
-    return this.http.post(Api.host + '/admin/activite', {
-      form
-    }, {
+    return this.http.post(Api.host + '/admin/activite', form, {
       headers: this.httpHeader()
     });
   }
 
   public editActivite(id: number, form: any) {
-    return this.http.put(Api.host + '/admin/activite' +
-      '?id'+id, {
-      form
-    }, {
+    return this.http.put(Api.host + '/admin/activite?id='+id, form, {
       headers: this.httpHeader()
     });
   }
 
   public enableActivite(id: number) {
     return this.http.put(Api.host + '/admin/activite/enable' +
-      '?id'+id, {}, {
+      '?id='+id, {}, {
       headers: this.httpHeader()
     });
   }
   public disableActivite(id: number) {
     return this.http.put(Api.host + '/admin/activite/disable' +
-      '?id'+id, {}, {
+      '?id='+id, {}, {
       headers: this.httpHeader()
     });
   }
