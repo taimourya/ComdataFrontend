@@ -1,7 +1,10 @@
 
+
+
 <div class="row">
   <div class="col-4">
-    <div class="card bg-primary text-white">
+    <div class="card text-white"
+         [ngClass]="{'bg-success': temps.tPause == 0 && temps.tInactif == 0, 'bg-primary': temps.tPause > 0 || temps.tInactif > 0}">
       <div class="card-body">
         Temps d'activité
         <div class="text-white-50">
@@ -12,10 +15,10 @@
   </div>
 
   <div class="col-4">
-    <div class="card bg-primary text-white">
+    <div class="card text-white" [ngClass]="{'bg-success': temps.tPause > 0, 'bg-primary': temps.tPause == 0}">
       <div class="card-body">
         Temps de pause
-        <button class="btn btn-danger" (click)="onPauseEnd()" *ngIf="temps.tPause > 0"><i class="fas fa-fw fa-pause"></i></button>
+        <button class="btn btn-danger float-right" (click)="onPauseEnd()" *ngIf="temps.tPause > 0"><i class="fas fa-fw fa-pause"></i></button>
         <div class="text-white-50">
           <b>{{temps.tPause}}</b>
         </div>
@@ -24,10 +27,10 @@
   </div>
 
   <div class="col-4">
-    <div class="card bg-primary text-white">
+    <div class="card text-white" [ngClass]="{'bg-warning': temps.tInactif > 0, 'bg-primary': temps.tInactif == 0}">
       <div class="card-body">
         Temps d'inactivité
-        <button class="btn btn-warning disabled" *ngIf="temps.tInactif > 0"><i class="fas fa-fw fa-exclamation-triangle"></i></button>
+        <button class="btn btn-danger disabled float-right" *ngIf="temps.tInactif > 0"><i class="fas fa-fw fa-exclamation-triangle"></i></button>
         <div class="text-white-50"><b>{{temps.tInactif}}</b></div>
       </div>
     </div>

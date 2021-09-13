@@ -1,5 +1,7 @@
 
-<div class="card">
+<div class="spinner-border text-primary" *ngIf="isLoading"></div>
+
+<div class="card" *ngIf="!isLoading">
   <div class="card-header">
     <a routerLink="/users" class="btn btn-primary float-right">Retour<i class="fas fa-fw fa-forward ml-2"></i></a>
     <h4 class="text-center">Historique utilisation du temps du collaborateur</h4>

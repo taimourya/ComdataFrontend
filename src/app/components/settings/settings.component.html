@@ -4,7 +4,8 @@
 
   <div class="col-3"></div>
 
-  <div class="col-6">
+  <div class="spinner-border text-primary" *ngIf="isLoading"></div>
+  <div class="col-6" *ngIf="!isLoading">
     <div class="card">
       <div class="card-header">
         <h4 class="text-primary text-center">Parametre de l'activité <span class="text-danger">{{data.nom}}</span></h4>

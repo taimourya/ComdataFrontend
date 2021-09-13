@@ -17,6 +17,8 @@ export class CollaborateurTempsComponent implements OnInit {
 
   collTempsInfo: any = {};
 
+  isLoading: boolean = false;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private adminService: AdminService,
@@ -35,11 +37,12 @@ export class CollaborateurTempsComponent implements OnInit {
   }
 
   getCollaborateur() {
-
+    this.isLoading = true;
     if(this.authRole == 'admin') {
       this.adminService.fetchTempsCollaborateur(this.matricule).subscribe(data => {
         console.log(data);
         this.collTempsInfo = data;
+        this.isLoading = false;
       }, error => {
         console.log('error on temps coll');
         console.log(error);
@@ -50,6 +53,7 @@ export class CollaborateurTempsComponent implements OnInit {
       this.superviseur.fetchTempsCollaborateur(this.matricule).subscribe(data => {
         console.log(data);
         this.collTempsInfo = data;
+        this.isLoading = false;
       }, error => {
         console.log('error on temps coll');
         console.log(error);

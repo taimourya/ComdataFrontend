@@ -129,8 +129,8 @@
                   <span class="badge badge-success" *ngIf="a.active">Oui</span>
                   <span class="badge badge-danger" *ngIf="!a.active">Non</span>
                 </td>
-                <td>{{a.tinactiviteMs}}</td>
-                <td>{{a.tfermetureSessionMs}}</td>
+                <td>{{a.tinactiviteMs}} ms</td>
+                <td>{{a.tfermetureSessionMs}} ms</td>
                 <td>
                   <button *ngIf="a.active" (click)="onDisable(a.id)" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></button>
                   <button *ngIf="!a.active" (click)="onEnable(a.id)" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></button>

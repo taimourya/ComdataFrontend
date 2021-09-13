@@ -20,6 +20,8 @@ export class SettingsComponent implements OnInit {
   temps1: number = 1;
   temps2: number = 1;
 
+  isLoading: boolean = false;
+
   constructor(private superviseurService: SuperviseurService) { }
 
   ngOnInit(): void {
@@ -27,9 +29,11 @@ export class SettingsComponent implements OnInit {
   }
 
   getActivite() {
+    this.isLoading = true;
     this.superviseurService.fetchParametrage().subscribe(data => {
 
       this.data = data;
+      this.isLoading = false;
 
     }, error => {
       console.log('error at settings');

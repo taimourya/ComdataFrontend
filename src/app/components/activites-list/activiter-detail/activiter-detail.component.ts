@@ -21,6 +21,8 @@ export class ActiviterDetailComponent implements OnInit {
   temps1: number = 1;
   temps2: number = 1;
 
+  isLoading: boolean = false;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private adminService: AdminService) { }
@@ -33,8 +35,10 @@ export class ActiviterDetailComponent implements OnInit {
   }
 
   getActiviter() {
+      this.isLoading = true;
       this.adminService.getActivite(this.id).subscribe(data => {
         this.data = data;
+        this.isLoading = false;
       }, error => {
         this.router.navigateByUrl("/");
       });

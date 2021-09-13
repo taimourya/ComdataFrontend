@@ -25,6 +25,8 @@ export class UserDetailComponent implements OnInit {
   messageSuccess: string = '';
   messageFailed: string = '';
 
+  isLoading: boolean = false;
+
   constructor(private route: ActivatedRoute,
               private adminService: AdminService,
               private superviseurService: SuperviseurService,
@@ -47,6 +49,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   getUser() {
+    this.isLoading = true;
     if(this.matricule == this.authMatricule) {
       this.authService.fetchProfil().subscribe(data => {
         this.userData = data;
@@ -55,6 +58,7 @@ export class UserDetailComponent implements OnInit {
         this.userData.lastname = splitedName[1];
         this.userData.passwd = '';
         this.userData.confirmPasswd = '';
+        this.isLoading = false;
       }, error => {
         console.log('error at user details');
         console.log(error);
@@ -68,6 +72,7 @@ export class UserDetailComponent implements OnInit {
         this.userData.lastname = splitedName[1];
         this.userData.passwd = '';
         this.userData.confirmPasswd = '';
+        this.isLoading = false;
       }, error => {
         console.log('error at user details');
         console.log(error);
@@ -81,6 +86,7 @@ export class UserDetailComponent implements OnInit {
         this.userData.lastname = splitedName[1];
         this.userData.passwd = '';
         this.userData.confirmPasswd = '';
+        this.isLoading = false;
       }, error => {
         console.log('error at user details');
         console.log(error);
