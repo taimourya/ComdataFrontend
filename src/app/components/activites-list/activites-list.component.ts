@@ -24,6 +24,9 @@ export class ActivitesListComponent implements OnInit {
   messageSuccess: string = '';
   messageFailed: string = '';
 
+  temps1: number = 1;
+  temps2: number = 1;
+
   constructor(
     private searchService: SearchService,
     private adminService: AdminService
@@ -69,8 +72,8 @@ export class ActivitesListComponent implements OnInit {
     console.log(form.value['name']);
     this.adminService.saveActivite({
       name: form.value['name'],
-      tinactiviteMs: form.value['tinactiviteMs'],
-      tfermetureSessionMs: form.value['tfermetureSessionMs']
+      tinactiviteMs: form.value['tinactiviteMs'] * this.temps1,
+      tfermetureSessionMs: form.value['tfermetureSessionMs'] * this.temps2
     }).subscribe(data => {
       console.log(data);
       this.messageSuccess = 'activiter ajouter avec succes';
@@ -119,6 +122,35 @@ export class ActivitesListComponent implements OnInit {
       this.page--;
       this.getData();
     }
+  }
+
+  onChangeTemps(form: NgForm, temps: string, source: number) {
+
+    if(temps === 'ms') {
+      if(source === 1) {
+        this.temps1 = 1;
+      }
+      else if(source === 2) {
+        this.temps2 = 1;
+      }
+    }
+    else if(temps === 's') {
+      if(source === 1) {
+        this.temps1 = 1000;
+      }
+      else if(source === 2) {
+        this.temps2 = 1000;
+      }
+    }
+    else if(temps === 'm') {
+      if(source === 1) {
+        this.temps1 = 1000 * 60;
+      }
+      else if(source === 2) {
+        this.temps2 = 1000 * 60;
+      }
+    }
+
   }
 
 }

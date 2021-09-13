@@ -61,6 +61,14 @@ export class SuperviseurService {
     });
   }
 
+
+
+  public fetchParametrage() {
+    return this.http.get(Api.host + '/superviseur/activiter/parametrage', {
+      headers: this.httpHeader()
+    });
+  }
+
   public editParametrage(tfermetureSessionMs: number, tinactiviteMs: number) {
     return this.http.put(Api.host + '/superviseur/activiter/parametrage', {
       "tfermetureSessionMs": tfermetureSessionMs,

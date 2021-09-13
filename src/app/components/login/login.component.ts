@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AccountService} from "../../services/account.service";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -13,12 +14,16 @@ export class LoginComponent implements OnInit {
 
   hasError: boolean = false;
 
+  errorMsg: string = '';
+
   constructor(private authService: AuthService,
               private accountService: AccountService,
-              private route: Router) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
+    this.errorMsg = this.route.snapshot.params['msgErr'];
   }
 
   onSubmit(form: NgForm) {
@@ -27,11 +32,13 @@ export class LoginComponent implements OnInit {
       console.log(resp);
       this.authService.setToken(resp.headers.get('Authorization'));
       this.accountService.changeStatus(true);
-      this.route.navigateByUrl("/");
-      //this.webSocketService.start();
+      setTimeout(() => {
+        this.router.navigateByUrl("/");
+      }, 100);
+
     }, err => {
       console.log(err);
-      this.hasError = true;
+      this.errorMsg = 'matricule or password incorrect';
     });
   }
 

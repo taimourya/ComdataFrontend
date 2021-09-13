@@ -7,22 +7,68 @@
   <div class="col-6">
     <div class="card">
       <div class="card-header">
-        <h4 class="text-primary text-center">Parametre de l'activité <span class="text-danger">UBER</span></h4>
+        <h4 class="text-primary text-center">Parametre de l'activité <span class="text-danger">{{data.nom}}</span></h4>
       </div>
       <div class="card-body">
+        <div class="alert alert-success alert-dismissible" role="alert" *ngIf="messageSuccess != ''">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeMessage()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{messageSuccess}}
+        </div>
+        <div class="alert alert-danger alert-dismissible" role="alert" *ngIf="messageFailed != ''">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeMessage()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{messageFailed}}
+        </div>
         <h5 class="text-body">Gérer le temps d'inactiviter</h5>
         <hr>
-        <div class="form-group">
-          <label for="tinactiviteMs">temps d'inactivité en ms</label>
-          <input type="number" class="form-control" id="tinactiviteMs" aria-describedby="emailHelp"
-                 placeholder="temps d'inactivité en ms"  [(ngModel)]="data.tinactiviteMs" required name="tinactiviteMs">
-        </div>
-        <div class="form-group">
-          <label for="tfermetureSessionMs">temps fermeture session en ms</label>
-          <input type="number" class="form-control" id="tfermetureSessionMs" aria-describedby="emailHelp"
-                 placeholder="temps fermeture session en ms"  [(ngModel)]="data.tfermetureSessionMs" required name="tfermetureSessionMs">
-        </div>
-        <button class="btn btn-primary float-right">Enregistrer<i class="fas fa-fw fa-save ml-2"></i></button>
+        <form (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>temps d'inactivité</label>
+            <div class="input-group mr-3">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                  <span *ngIf="temps1 == 1" class="bg-primary text-white">MS</span>
+                  <span *ngIf="temps1 == 1000" class="bg-primary text-white">S</span>
+                  <span *ngIf="temps1 == 60*1000" class="bg-primary text-white">M</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" (click)="onChangeTemps( 'ms', 1)">Milisecondes</a>
+                  <a class="dropdown-item" (click)="onChangeTemps( 's', 1)">Secondes</a>
+                  <a class="dropdown-item" (click)="onChangeTemps( 'm', 1)">Minutes</a>
+                </div>
+              </div>
+              <input type="number" class="form-control" aria-label="Text input with dropdown button"
+                     required [(ngModel)]="data.tinactiviteMs" name="tinactiviteMs">
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label>temps fermeture de session</label>
+            <div class="input-group mr-3">
+              <div class="input-group-prepend">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                  <span *ngIf="temps2 == 1" class="bg-primary text-white">MS</span>
+                  <span *ngIf="temps2 == 1000" class="bg-primary text-white">S</span>
+                  <span *ngIf="temps2 == 60*1000" class="bg-primary text-white">M</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" (click)="onChangeTemps( 'ms', 2)">Milisecondes</a>
+                  <a class="dropdown-item" (click)="onChangeTemps( 's', 2)">Secondes</a>
+                  <a class="dropdown-item" (click)="onChangeTemps( 'm', 2)">Minutes</a>
+                </div>
+              </div>
+              <input type="number" class="form-control" aria-label="Text input with dropdown button"
+                     [(ngModel)]="data.tfermetureSessionMs" required name="tfermetureSessionMs">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary float-right mt-4">Enregistrer<i class="fas fa-fw fa-save ml-2"></i></button>
+        </form>
       </div>
     </div>
   </div>

@@ -17,10 +17,11 @@ export class AfterAuthGuard implements CanActivate {
   ): boolean {
 
     if(this.authService.isAuth()) {
-      this.route.navigateByUrl("/centre")
-      this.accountService.changeStatus(true)
+      this.route.navigateByUrl("/")
+      this.accountService.changeStatus(true);
       return false;
     }
+
 
     return true;
 

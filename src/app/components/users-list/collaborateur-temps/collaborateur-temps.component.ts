@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AdminService} from "../../../services/admin.service";
+import {SuperviseurService} from "../../../services/superviseur.service";
+import {AuthService} from "../../../services/auth.service";
+import {AccountService} from "../../../services/account.service";
 
 @Component({
   selector: 'app-collaborateur-temps',
@@ -9,11 +13,49 @@ import {ActivatedRoute} from "@angular/router";
 export class CollaborateurTempsComponent implements OnInit {
 
   matricule: string = '';
+  authRole: string = '';
 
-  constructor(private route: ActivatedRoute) { }
+  collTempsInfo: any = {};
+
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private adminService: AdminService,
+              private superviseur: SuperviseurService,
+              private authService: AuthService,
+              private accountService: AccountService) { }
 
   ngOnInit(): void {
-    this.matricule = this.route.snapshot.params['userId'];
+
+    this.authService.afterSetRole.subscribe(role => {
+      this.authRole = role;
+      this.matricule = this.route.snapshot.params['userId'];
+      this.getCollaborateur();
+    });
+
+  }
+
+  getCollaborateur() {
+
+    if(this.authRole == 'admin') {
+      this.adminService.fetchTempsCollaborateur(this.matricule).subscribe(data => {
+        console.log(data);
+        this.collTempsInfo = data;
+      }, error => {
+        console.log('error on temps coll');
+        console.log(error);
+        //this.router.navigateByUrl("/403");
+      });
+    }
+    else if(this.authRole == 'superviseur') {
+      this.superviseur.fetchTempsCollaborateur(this.matricule).subscribe(data => {
+        console.log(data);
+        this.collTempsInfo = data;
+      }, error => {
+        console.log('error on temps coll');
+        console.log(error);
+        //this.router.navigateByUrl("/403");
+      });
+    }
   }
 
 }

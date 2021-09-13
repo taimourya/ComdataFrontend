@@ -18,18 +18,20 @@
         <h6 class="m-0 font-weight-bold text-primary">
           User details
           <button class="btn btn-info ml-3" (click)="onClickEdit()"><i class="fas fa-fw fa-edit"></i></button>
-          <button class="btn btn-danger ml-3" [routerLink]="['/collaborateurTemps/'+1]"><i class="fas fa-fw fa-chart-area"></i></button>
+          <button *ngIf="userData.roleName == 'collaborateur' && role != 'collaborateur'" class="btn btn-danger ml-3" [routerLink]="['/collaborateurTemps/'+matricule]"><i class="fas fa-fw fa-chart-area"></i></button>
         </h6>
-        <a routerLink="/users" class="btn btn-primary">Retour<i class="fas fa-fw fa-forward ml-2"></i></a>
+        <a *ngIf="role != 'collaborateur'" routerLink="/users" class="btn btn-primary">Retour<i class="fas fa-fw fa-forward ml-2"></i></a>
       </div>
       <div class="card-body">
         <h5 class="text-primary">Ce compte est
           <b [ngClass]="{'text-success': userData.active, 'text-danger': !userData.active}">
             {{ userData.active? 'activer':'desactiver' }}
           </b>
-          vous pouvez {{ userData.isActive? 'le désactiver':'l\'activer' }} en cliquant sur
-          <button *ngIf="userData.active" (click)="onDisable()" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></button>
-          <button *ngIf="!userData.active" (click)="onEnable()" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></button>
+          <span *ngIf="role != 'collaborateur'">
+            vous pouvez {{ userData.isActive? 'le désactiver':'l\'activer' }} en cliquant sur
+            <button *ngIf="userData.active" (click)="onDisable()" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></button>
+            <button *ngIf="!userData.active" (click)="onEnable()" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></button>
+          </span>
         </h5>
         <h5 class="text-primary">Compte <b class="text-success">{{ userData.roleName}}</b></h5>
         <form  (ngSubmit)="onSubmit(f)" #f="ngForm">

@@ -21,6 +21,7 @@ const routes: Routes = [
   {path : "" , component : HomeComponent},
   {path : "home", canActivate: [AuthGuard] , component : DashboardComponent,
     data: {roles: ['admin', 'superviseur']}},
+  {path : "login/:msgErr" , component : LoginComponent, canActivate : [AfterAuthGuard]},
   {path : "login" , component : LoginComponent, canActivate : [AfterAuthGuard]},
   {path : "users", canActivate: [AuthGuard], component : UsersListComponent,
     data: {roles: ['admin', 'superviseur']} },

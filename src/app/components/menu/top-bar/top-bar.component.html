@@ -1,8 +1,11 @@
 <!-- TopBar -->
+
+
 <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top" style="background: #125b76">
   <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3" (click)="toggleNav()" *ngIf="role !== 'collaborateur'">
     <i class="fa fa-bars"></i>
   </button>
+    <a routerLink="/home/collaborateur"><img src="assets/img/logo/logo-comdata.png" style="height: 50px" *ngIf="role == 'collaborateur'"></a>
   <ul class="navbar-nav ml-auto">
     <li class="nav-item dropdown no-arrow" *ngIf="role !== 'collaborateur'">
       <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"

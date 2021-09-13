@@ -27,8 +27,8 @@
         {{ data.active? 'activer':'desactiver' }}
       </b>
       vous pouvez {{ data.active? 'le désactiver':'l\'activer' }} en cliquant sur
-      <a *ngIf="data.active" href="#" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></a>
-      <a *ngIf="!data.active" href="#" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></a>
+      <button *ngIf="data.active" (click)="onDesactiver()" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></button>
+      <button *ngIf="!data.active" (click)="onActiver()" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></button>
     </h5>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -53,24 +53,51 @@
         </div>
       </div>
 
+
       <div class="row">
         <div class="col-6">
-          <div class="form-group">
-            <label for="tinactiviteMs">temps inactiviter en ms</label>
-            <input type="number" class="form-control" id="tinactiviteMs" aria-describedby="emailHelp"
-                   placeholder="temps inactiviter en ms" [(ngModel)]="data.tinactiviteMs" [disabled]="!editMode" name="tinactiviteMs">
+          <label>temps d'inactivité</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                <span *ngIf="temps1 == 1" class="bg-primary text-white">MS</span>
+                <span *ngIf="temps1 == 1000" class="bg-primary text-white">S</span>
+                <span *ngIf="temps1 == 60*1000" class="bg-primary text-white">M</span>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="onChangeTemps('ms', 1)">Milisecondes</a>
+                <a class="dropdown-item" (click)="onChangeTemps('s', 1)">Secondes</a>
+                <a class="dropdown-item" (click)="onChangeTemps('m', 1)">Minutes</a>
+              </div>
+            </div>
+            <input type="number" class="form-control" aria-label="Text input with dropdown button"
+                   [(ngModel)]="data.tinactiviteMs" [disabled]="!editMode" name="tinactiviteMs">
           </div>
         </div>
         <div class="col-6">
-          <div class="form-group">
-            <label for="tfermetureSessionMs">temps fermeture session en ms</label>
-            <input type="number" class="form-control" id="tfermetureSessionMs" aria-describedby="emailHelp"
-                   placeholder="temps fermeture session en ms" [(ngModel)]="data.tfermetureSessionMs" [disabled]="!editMode" name="tfermetureSessionMs">
+          <label>temps fermeture session</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                <span *ngIf="temps2 == 1" class="bg-primary text-white">MS</span>
+                <span *ngIf="temps2 == 1000" class="bg-primary text-white">S</span>
+                <span *ngIf="temps2 == 60*1000" class="bg-primary text-white">M</span>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="onChangeTemps('ms', 2)">Milisecondes</a>
+                <a class="dropdown-item" (click)="onChangeTemps('s', 2)">Secondes</a>
+                <a class="dropdown-item" (click)="onChangeTemps('m', 2)">Minutes</a>
+              </div>
+            </div>
+            <input type="number" class="form-control"
+                   [(ngModel)]="data.tfermetureSessionMs" [disabled]="!editMode" name="tfermetureSessionMs">
           </div>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary" [disabled]="!editMode">Valider<i class="fas fa-fw fa-check ml-2"></i></button>
+      <button type="submit" class="btn btn-primary mt-4" [disabled]="!editMode">Valider<i class="fas fa-fw fa-check ml-2"></i></button>
     </form>
   </div>
 </div>

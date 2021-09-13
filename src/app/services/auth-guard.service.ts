@@ -25,17 +25,17 @@ export class AuthGuard implements CanActivate {
           return false;
         }
 
+        this.accountService.changeStatus(true);
+
         if(route.data.roles != null) {
           for (let i = 0; i < route.data.roles.length; i++){
             const r: string = route.data.roles[i];
             if(r === this.authService.getRole()) {
-              this.accountService.changeStatus(true);
               return true;
             }
           }
         }
 
-        this.accountService.changeStatus(true);
         this.route.navigateByUrl("/403")
         return false;
 

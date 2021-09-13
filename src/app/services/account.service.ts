@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {AuthService} from "./auth.service";
+import {WebSocketService} from "./web-socket.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AccountService {
   matriculeStatus = this.matricule.asObservable();
 
 
-  constructor(private authService : AuthService) { }
+  constructor(private authService : AuthService,
+              private webSocketService: WebSocketService) { }
 
   changeStatus(value:boolean){
       this.loggedIn.next(value);

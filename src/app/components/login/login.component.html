@@ -12,7 +12,7 @@
                   <h1 class="h4 text-gray-900 mb-4">Login</h1>
                 </div>
                 <form class="user" (ngSubmit)="onSubmit(f)" #f="ngForm">
-                  <span class="text-danger" *ngIf="hasError">matricule ou mot de passe incorrect</span>
+                  <span class="text-danger" *ngIf="errorMsg != null">{{errorMsg}}</span>
                   <div class="form-group">
                     <input type="text" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
                            placeholder="Matricule" ngModel required name="matricule">

@@ -4,6 +4,7 @@ import {NavToggleService} from "../../../services/nav-toggle.service";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {AccountService} from "../../../services/account.service";
+import {WebSocketService} from "../../../services/web-socket.service";
 
 @Component({
   selector: 'app-top-bar',
@@ -20,7 +21,8 @@ export class TopBarComponent implements OnInit {
               private navToggleService: NavToggleService,
               private authService: AuthService,
               private accountService: AccountService,
-              private route: Router) { }
+              private route: Router,
+              private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
     this.authService.afterSetRole.subscribe(role => {
@@ -46,6 +48,9 @@ export class TopBarComponent implements OnInit {
   }
 
   onLogout() {
+    if(this.role == 'collaborateur') {
+      this.webSocketService.endSession();
+    }
     this.authService.setToken(null);
     this.accountService.changeStatus(false);
     this.route.navigateByUrl("/login");

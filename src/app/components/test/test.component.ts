@@ -12,9 +12,6 @@ import {SearchService} from "../../services/search.service";
 export class TestComponent implements OnInit {
 
 
-  tActif: number = 0;
-  tPause: number = 0;
-  tInactif: number = 0;
 
   temps: any;
 

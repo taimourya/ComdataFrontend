@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Api} from "../constants/api.constant";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Subject} from "rxjs";
+import {BehaviorSubject, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +31,8 @@ export class AuthService {
   }
 
   setRole(role: string) {
-    localStorage.setItem('role', role);
     this.afterSetRole.next(role);
+    localStorage.setItem('role', role);
   }
 
 
@@ -68,6 +68,15 @@ export class AuthService {
   editProfil(form: any) {
     let token = this.getToken();
     return this.http.put(Api.host + '/user/profil/edit', form, {
+      headers: new HttpHeaders({
+        'Authorization': token!
+      })
+    });
+  }
+
+  fetchPauses() {
+    let token = this.getToken();
+    return this.http.get(Api.host + '/user/pause/types', {
       headers: new HttpHeaders({
         'Authorization': token!
       })
