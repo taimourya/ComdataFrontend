@@ -85,4 +85,12 @@ export class SuperviseurService {
     });
   }
 
+  public fetchStatistiquesPieByActivite(from: Date, to: Date) {
+    return this.http.get(Api.host + '/superviseur/activiter/stats/pie' +
+      '?from=' + from +
+      '&to=' + to, {
+      headers: this.httpHeader()
+    });
+  }
+
 }

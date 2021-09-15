@@ -18,6 +18,10 @@ export class HomeCollaborateurComponent implements OnInit {
 
   types: any = [];
 
+  messageSuccess: string = '';
+  messageFailed: string = '';
+
+
   constructor(private accountService: AccountService,
               private authService: AuthService,
               private route: Router,
@@ -45,7 +49,13 @@ export class HomeCollaborateurComponent implements OnInit {
   }
 
   onPause() {
-    this.webSocketService.startPause(this.selectedType);
+    if(this.temps.tPause > 0) {
+      this.messageFailed = 'vous ete deja en pause';
+    }
+    else {
+      this.messageSuccess = 'opération effectué';
+      this.webSocketService.startPause(this.selectedType);
+    }
   }
   onPauseEnd() {
     this.webSocketService.endPause();
@@ -56,6 +66,11 @@ export class HomeCollaborateurComponent implements OnInit {
     this.authService.setRole('');
     this.accountService.changeStatus(false);
     this.route.navigateByUrl("/login/" + 'votre session a été fermé');
+  }
+
+  closeMessage() {
+    this.messageSuccess = '';
+    this.messageFailed = '';
   }
 
 }

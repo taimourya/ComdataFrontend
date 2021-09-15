@@ -23,6 +23,7 @@ import { HomeCollaborateurComponent } from './components/home-collaborateur/home
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HomeComponent } from './components/home/home.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { HomeComponent } from './components/home/home.component';
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        ChartsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

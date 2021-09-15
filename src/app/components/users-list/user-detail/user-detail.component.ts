@@ -38,10 +38,10 @@ export class UserDetailComponent implements OnInit {
     this.accountService.matriculeStatus.subscribe(matricule => {
       this.authMatricule = matricule;
       this.matricule = this.route.snapshot.params['userId'];
-        this.authService.afterSetRole.subscribe(role => {
-          this.role = role;
-          this.getUser();
-        });
+      this.authService.afterSetRole.subscribe(role => {
+        this.role = role;
+        this.getUser();
+      });
     });
 
 

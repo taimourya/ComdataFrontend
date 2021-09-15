@@ -112,4 +112,32 @@ export class AdminService {
     });
   }
 
+  public fetchStatistiquesCollaborateur(matricule: string, paramTime: string, from: Date, to: Date) {
+    return this.http.get(Api.host + '/admin/collaborateur/stats' +
+      '?matricule=' + matricule +
+      '&paramTime=' + paramTime +
+      '&from=2020-08-01' +
+      '&to=2021-10-10', {
+      headers: this.httpHeader()
+    });
+  }
+
+  public fetchStatistiquesByActivite(id: number, paramTime: string, from: Date, to: Date) {
+    return this.http.get(Api.host + '/admin/activiter/stats' +
+      '?id=' + id +
+      '&paramTime=' + paramTime +
+      '&from=' + from +
+      '&to=' + to, {
+      headers: this.httpHeader()
+    });
+  }
+
+  public fetchStatistiquesPieByActivite(id: number, from: Date, to: Date) {
+    return this.http.get(Api.host + '/admin/activiter/stats/pie' +
+      '?id=' + id +
+      '&from=' + from +
+      '&to=' + to, {
+      headers: this.httpHeader()
+    });
+  }
 }
