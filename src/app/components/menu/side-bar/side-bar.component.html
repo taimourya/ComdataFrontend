@@ -28,6 +28,12 @@
       <span>Activités</span>
     </a>
   </li>
+  <li class="nav-item" routerLinkActive="active" *ngIf="role === 'admin'">
+    <a class="nav-link" routerLink="types">
+      <i class="fas fa-fw fa-pause"></i>
+      <span>types pause</span>
+    </a>
+  </li>
   <hr class="sidebar-divider">
   <div class="sidebar-heading">
     Settings

@@ -16,6 +16,7 @@ import {HomeCollaborateurComponent} from "./components/home-collaborateur/home-c
 import {AccessDeniedComponent} from "./components/access-denied/access-denied.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {HomeComponent} from "./components/home/home.component";
+import {TypesPauseListComponent} from "./components/types-pause-list/types-pause-list.component";
 
 const routes: Routes = [
   {path : "" , component : HomeComponent},
@@ -26,6 +27,8 @@ const routes: Routes = [
   {path : "users", canActivate: [AuthGuard], component : UsersListComponent,
     data: {roles: ['admin', 'superviseur']} },
   {path : "activites", canActivate: [AuthGuard] , component : ActivitesListComponent,
+    data: {roles: ['admin']} },
+  {path : "types", canActivate: [AuthGuard] , component : TypesPauseListComponent,
     data: {roles: ['admin']} },
   {path : "user/:userId", canActivate: [AuthGuard] , component : UserDetailComponent,
     data: {roles: ['admin', 'superviseur', 'collaborateur']} },

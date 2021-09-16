@@ -24,6 +24,7 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { ChartsModule } from 'ng2-charts';
+import { TypesPauseListComponent } from './components/types-pause-list/types-pause-list.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ChartsModule } from 'ng2-charts';
     AccessDeniedComponent,
     NotFoundComponent,
     HomeComponent,
+    TypesPauseListComponent,
   ],
     imports: [
         BrowserModule,

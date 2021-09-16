@@ -140,4 +140,33 @@ export class AdminService {
       headers: this.httpHeader()
     });
   }
+
+  public fetchTypes(mc: string, page: number, size: number) {
+    return this.http.get(Api.host + '/admin/types' +
+      '?mc=' + mc +
+      '&page=' + page +
+      '&size=' + size, {
+      headers: this.httpHeader()
+    });
+  }
+
+  public saveType(form: any) {
+    return this.http.post(Api.host + '/admin/type', form, {
+      headers: this.httpHeader()
+    });
+  }
+
+  public editType(id: number, form: any) {
+    return this.http.put(Api.host + '/admin/type?id='+id, form, {
+      headers: this.httpHeader()
+    });
+  }
+
+  public deleteType(id: number) {
+    return this.http.delete(Api.host + '/admin/type' +
+      '?id='+id, {
+      headers: this.httpHeader()
+    });
+  }
+
 }
