@@ -29,13 +29,23 @@
           <b [ngClass]="{'text-success': userData.active, 'text-danger': !userData.active}">
             {{ userData.active? 'activer':'desactiver' }}
           </b>
-          <span *ngIf="role != 'collaborateur'">
-            vous pouvez {{ userData.isActive? 'le désactiver':'l\'activer' }} en cliquant sur
+          <span *ngIf="authMatricule != matricule">
+            vous pouvez {{ userData.active? 'le désactiver':'l\'activer' }} en cliquant sur
             <button *ngIf="userData.active" (click)="onDisable()" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></button>
             <button *ngIf="!userData.active" (click)="onEnable()" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></button>
           </span>
         </h5>
         <h5 class="text-primary">Compte <b class="text-success">{{ userData.roleName}}</b></h5>
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col-2">
+            <img [src]="userData.imageUri" class="img-thumbnail" style="border-radius: 45%; width: 200px">
+          </div>
+          <div class="col-6 mt-5" *ngIf="matricule == authMatricule">
+            <label>importer votre image</label>
+            <input type="file" class="form-control" (change)="onChangeImage($event)">
+          </div>
+        </div>
         <form  (ngSubmit)="onSubmit(f)" #f="ngForm">
           <div class="form-group">
             <label for="matricule">matricule</label>

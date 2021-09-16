@@ -28,10 +28,11 @@ export class CollaborateurTempsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authService.afterSetRole.subscribe(role => {
+    let sub = this.authService.afterSetRole.subscribe(role => {
       this.authRole = role;
       this.matricule = this.route.snapshot.params['userId'];
       this.getCollaborateur();
+      sub.unsubscribe();
     });
 
   }

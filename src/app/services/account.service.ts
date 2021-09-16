@@ -12,10 +12,12 @@ export class AccountService {
   private userRole = new BehaviorSubject<string>('');
   private fullname = new BehaviorSubject<string>('');
   private matricule = new BehaviorSubject<string>('');
+  private image = new BehaviorSubject<string>('');
   authStatus = this.loggedIn.asObservable();
   roleStatus = this.userRole.asObservable();
   fullNameStatus = this.fullname.asObservable();
   matriculeStatus = this.matricule.asObservable();
+  imageStatus = this.image.asObservable();
 
 
   constructor(private authService : AuthService,
@@ -31,11 +33,11 @@ export class AccountService {
           this.authService.setRole(datan.roleName);
           this.fullname.next(datan.fullName);
           this.matricule.next(datan.matricule);
+          this.image.next(datan.imageUri);
         }, err => {
           console.log(err);
         });
     }
-
   }
 
 

@@ -43,7 +43,7 @@
     <div class="col-6 mb-2" *ngFor="let chart of charts">
       <div class="card">
         <div class="card-title">
-          <h6 class="text-primary text-center mt-4">{{chart.fullname}}</h6>
+          <h6 class="text-primary text-center mt-4"><a [routerLink]="['/user/'+chart.matricule]">{{chart.fullname}}</a> </h6>
         </div>
         <div class="card-body">
           <canvas baseChart

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SearchService} from "../../services/search.service";
 import {AdminService} from "../../services/admin.service";
 import {SuperviseurService} from "../../services/superviseur.service";
 import {AccountService} from "../../services/account.service";
 import {AuthService} from "../../services/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css']
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit, OnDestroy {
 
 
   filterEtatCompte: string = "All";
@@ -28,7 +29,7 @@ export class UsersListComponent implements OnInit {
   activites: any = [];
 
   mc: string = '';
-
+  subscriptionMc: any;
   isLoading: boolean = false;
 
   messageSuccess: string = '';
@@ -43,12 +44,14 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActivites();
-    this.authService.afterSetRole.subscribe(role => {
+    let sub = this.authService.afterSetRole.subscribe(role => {
       this.role = role;
       this.getData();
+      sub.unsubscribe();
     });
-    this.searchService.searchSubject.subscribe(mc => {
+    this.subscriptionMc = this.searchService.searchSubject.subscribe(mc => {
       this.mc = mc;
+      console.log(mc);
       this.getData();
     });
   }
@@ -59,17 +62,18 @@ export class UsersListComponent implements OnInit {
       this.adminService.fetchUsers(this.mc, this.filterTypeCompte,
                 this.filterEtatCompte, this.filterSession, this.filterActiviter, this.page, this.size).subscribe(data => {
         console.log(data);
+        console.log("user-list");
         let datan : any = data;
         this.users = datan.content;
         this.totalPages = datan.totalPage;
-        if(this.page  >= this.totalPages) {
+        if(this.totalPages != 0 && this.page  >= this.totalPages) {
           this.page = 0;
           this.getData();
         }
         this.isLoading = false;
       }, error => {
-          console.log('error users list admin');
-          console.log(error);
+        console.log('error users list admin');
+        console.log(error);
       });
     }
     else {
@@ -79,7 +83,7 @@ export class UsersListComponent implements OnInit {
         let datan : any = data;
         this.users = datan.content;
         this.totalPages = datan.totalPage;
-        if(this.page  >= this.totalPages) {
+        if(this.totalPages != 0 && this.page  >= this.totalPages) {
           this.page = 0;
           this.getData();
         }
@@ -167,6 +171,11 @@ export class UsersListComponent implements OnInit {
       this.page--;
       this.getData();
     }
+  }
+
+  ngOnDestroy(): void {
+    console.log("ondestroy");
+    this.subscriptionMc.unsubscribe();
   }
 
 }

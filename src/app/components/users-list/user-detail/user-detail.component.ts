@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AdminService} from "../../../services/admin.service";
 import {SuperviseurService} from "../../../services/superviseur.service";
@@ -11,7 +11,7 @@ import {AccountService} from "../../../services/account.service";
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css']
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnDestroy {
 
   matricule: string = '';
   authMatricule: string = '';
@@ -27,6 +27,8 @@ export class UserDetailComponent implements OnInit {
 
   isLoading: boolean = false;
 
+  subscribeMatricule: any;
+
   constructor(private route: ActivatedRoute,
               private adminService: AdminService,
               private superviseurService: SuperviseurService,
@@ -35,16 +37,15 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.accountService.matriculeStatus.subscribe(matricule => {
+    this.subscribeMatricule = this.accountService.matriculeStatus.subscribe(matricule => {
       this.authMatricule = matricule;
       this.matricule = this.route.snapshot.params['userId'];
-      this.authService.afterSetRole.subscribe(role => {
+      let sub = this.authService.afterSetRole.subscribe(role => {
         this.role = role;
         this.getUser();
+        sub.unsubscribe();
       });
     });
-
-
 
   }
 
@@ -189,9 +190,24 @@ export class UserDetailComponent implements OnInit {
     }
   }
 
+  onChangeImage(event: any) {
+    console.log(event.target.files[0]);
+    this.authService.changeImage(event.target.files[0]).subscribe((data : any) => {
+      this.userData.imageUri = data.imageUri;
+      this.accountService.changeStatus(true);
+      this.messageSuccess = "votre image a été changé avec succes";
+    }, error => {
+      this.messageFailed = "upload de l'image impossible";
+    });
+  }
+
   closeMessage() {
     this.messageSuccess = '';
     this.messageFailed = '';
+  }
+
+  ngOnDestroy(): void {
+    this.subscribeMatricule.unsubscribe();
   }
 
 }

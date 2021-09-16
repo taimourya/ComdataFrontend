@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AdminService} from "../../services/admin.service";
 import {AuthService} from "../../services/auth.service";
 import {SuperviseurService} from "../../services/superviseur.service";
@@ -8,7 +8,7 @@ import {SuperviseurService} from "../../services/superviseur.service";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   authRole: string = '';
 
@@ -25,12 +25,14 @@ export class DashboardComponent implements OnInit {
   dateFromFilter: any = '2021-06-01';
   dateToFilter: any = '2021-10-01';
 
+  subscribeRole:any;
+
   constructor(private adminService: AdminService,
               private superviseurService: SuperviseurService,
               private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.afterSetRole.subscribe(role => {
+    this.subscribeRole = this.authService.afterSetRole.subscribe(role => {
       this.authRole = role;
       if(this.authRole == 'admin') {
         this.getActivites();
@@ -101,6 +103,10 @@ export class DashboardComponent implements OnInit {
   onFilterChange() {
     console.log('date from : ' + this.dateFromFilter);
     this.getStatsPieActivite();
+  }
+
+  ngOnDestroy(): void {
+    this.subscribeRole.unsubscribe();
   }
 
 }

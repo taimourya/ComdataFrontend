@@ -47,7 +47,7 @@ export class ActivitesListComponent implements OnInit {
       let datan: any = data;
       this.activites = datan.content;
       this.totalPages = datan.totalPage;
-      if(this.page  >= this.totalPages) {
+      if(this.totalPages != 0 && this.page  >= this.totalPages) {
         this.page = 0;
         this.getData();
       }

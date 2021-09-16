@@ -5,6 +5,7 @@ import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {AccountService} from "../../../services/account.service";
 import {WebSocketService} from "../../../services/web-socket.service";
+import {Api} from "../../../constants/api.constant";
 
 @Component({
   selector: 'app-top-bar',
@@ -16,6 +17,7 @@ export class TopBarComponent implements OnInit {
   role: string | null = '';
   fullname: string = '';
   matricule: string = '';
+  imageUri: string = '';
 
   constructor(private searchService: SearchService,
               private navToggleService: NavToggleService,
@@ -36,6 +38,10 @@ export class TopBarComponent implements OnInit {
     this.accountService.matriculeStatus.subscribe(matricule => {
       this.matricule = matricule;
     })
+
+    this.accountService.imageStatus.subscribe(image => {
+      this.imageUri = image;
+    });
   }
 
 
@@ -55,5 +61,7 @@ export class TopBarComponent implements OnInit {
     this.accountService.changeStatus(false);
     this.route.navigateByUrl("/login");
   }
+
+
 
 }

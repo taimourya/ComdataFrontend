@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Api} from "../constants/api.constant";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpRequest} from "@angular/common/http";
 import {BehaviorSubject, Subject} from "rxjs";
 
 @Injectable({
@@ -81,6 +81,20 @@ export class AuthService {
         'Authorization': token!
       })
     });
+  }
+
+  changeImage(file: File) {
+    const data: FormData = new FormData();
+    data.append('image', file);
+
+    console.log(data);
+    let token = this.getToken();
+    return this.http.post(Api.host + '/user/upload/image', data, {
+      headers: new HttpHeaders({
+        'Authorization': token!
+      })
+    });
+
   }
 
 }
