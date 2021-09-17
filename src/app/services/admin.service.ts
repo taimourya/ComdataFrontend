@@ -206,6 +206,13 @@ export class AdminService {
     return this.http.post(Api.host + '/admin/import/excel', data, {
       headers: this.httpHeader()
     });
+  }
 
+  startDownloadExcelFile(uri: string) {
+    return this.http.get(uri, {
+      observe: 'response',
+      responseType: 'blob' as 'json',
+      headers: this.httpHeader()
+    });
   }
 }

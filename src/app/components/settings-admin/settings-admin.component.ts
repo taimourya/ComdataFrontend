@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService} from "../../services/admin.service";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-settings-admin',
@@ -84,5 +85,39 @@ export class SettingsAdminComponent implements OnInit {
     this.messageFailed = '';
   }
 
+  startDownload(fileName: string, body: any) {
+    let filename: string = "users.xlsx";
+    let binaryData = [];
+    binaryData.push(body);
+    let downloadLink = document.createElement('a');
+    // @ts-ignore
+    downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: 'blob' }));
+    downloadLink.setAttribute('download', filename);
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+  }
 
+  onStartDownloadUsers() {
+    this.adminService.startDownloadExcelFile(this.uriUsers).subscribe(response => {
+      this.startDownload("users.xlsx", response.body);
+    });
+  }
+
+  onStartDownloadActivites() {
+    this.adminService.startDownloadExcelFile(this.fileActivites).subscribe(response => {
+      this.startDownload("activites.xlsx", response.body);
+    });
+  }
+
+  onStartDownloadTypes() {
+    this.adminService.startDownloadExcelFile(this.fileActivites).subscribe(response => {
+      this.startDownload("types.xlsx", response.body);
+    });
+  }
+
+  onStartDownloadTemps() {
+    this.adminService.startDownloadExcelFile(this.fileActivites).subscribe(response => {
+      this.startDownload("temps.xlsx", response.body);
+    });
+  }
 }
