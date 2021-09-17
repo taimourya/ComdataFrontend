@@ -104,19 +104,19 @@ export class SettingsAdminComponent implements OnInit {
   }
 
   onStartDownloadActivites() {
-    this.adminService.startDownloadExcelFile(this.fileActivites).subscribe(response => {
+    this.adminService.startDownloadExcelFile(this.uriActivites).subscribe(response => {
       this.startDownload("activites.xlsx", response.body);
     });
   }
 
   onStartDownloadTypes() {
-    this.adminService.startDownloadExcelFile(this.fileActivites).subscribe(response => {
+    this.adminService.startDownloadExcelFile(this.uriTypes).subscribe(response => {
       this.startDownload("types.xlsx", response.body);
     });
   }
 
   onStartDownloadTemps() {
-    this.adminService.startDownloadExcelFile(this.fileActivites).subscribe(response => {
+    this.adminService.startDownloadExcelFile(this.uriTemps).subscribe(response => {
       this.startDownload("temps.xlsx", response.body);
     });
   }
