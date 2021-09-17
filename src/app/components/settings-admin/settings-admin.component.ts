@@ -86,7 +86,6 @@ export class SettingsAdminComponent implements OnInit {
   }
 
   startDownload(fileName: string, body: any) {
-    let filename: string = "users.xlsx";
     let binaryData = [];
     binaryData.push(body);
     let downloadLink = document.createElement('a');
