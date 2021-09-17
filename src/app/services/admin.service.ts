@@ -169,4 +169,43 @@ export class AdminService {
     });
   }
 
+  public fetchLienGenerationUsers() {
+    return this.http.get(Api.host + '/admin/download/users/excel', {
+      responseType: 'text',
+      headers: this.httpHeader()
+    });
+  }
+
+  public fetchLienGenerationActivites() {
+    return this.http.get(Api.host + '/admin/download/activites/excel', {
+      responseType: 'text',
+      headers: this.httpHeader()
+    });
+  }
+
+  public fetchLienGenerationTypes() {
+    return this.http.get(Api.host + '/admin/download/types/excel', {
+      responseType: 'text',
+      headers: this.httpHeader()
+    });
+  }
+
+  public fetchLienGenerationTemps() {
+    return this.http.get(Api.host + '/admin/download/temps/excel', {
+      responseType: 'text',
+      headers: this.httpHeader()
+    });
+  }
+
+  importExcel(fileActivites: File, fileUsers: File, fileTypes: File, fileTemps: File) {
+    const data: FormData = new FormData();
+    data.append('fileActivites', fileActivites);
+    data.append('fileUsers', fileUsers);
+    data.append('fileTypes', fileTypes);
+    data.append('fileTemps', fileTemps);
+    return this.http.post(Api.host + '/admin/import/excel', data, {
+      headers: this.httpHeader()
+    });
+
+  }
 }

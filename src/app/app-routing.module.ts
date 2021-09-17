@@ -17,6 +17,7 @@ import {AccessDeniedComponent} from "./components/access-denied/access-denied.co
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {HomeComponent} from "./components/home/home.component";
 import {TypesPauseListComponent} from "./components/types-pause-list/types-pause-list.component";
+import {SettingsAdminComponent} from "./components/settings-admin/settings-admin.component";
 
 const routes: Routes = [
   {path : "" , component : HomeComponent},
@@ -40,6 +41,8 @@ const routes: Routes = [
     data: {roles: ['admin', 'superviseur']} },
   {path : "settings", canActivate: [AuthGuard] , component : SettingsComponent,
     data: {roles: ['superviseur']} },
+  {path : "settings/admin", canActivate: [AuthGuard] , component : SettingsAdminComponent,
+    data: {roles: ['admin']} },
   {path : "home/collaborateur", canActivate: [AuthGuard] , component : HomeCollaborateurComponent,
     data: {roles: ['collaborateur']} },
   {path : "403" , component : AccessDeniedComponent, },

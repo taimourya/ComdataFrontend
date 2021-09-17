@@ -38,8 +38,12 @@
   <div class="sidebar-heading">
     Settings
   </div>
-  <li class="nav-item" routerLinkActive="active" *ngIf="role === 'superviseur'">
-    <a class="nav-link" routerLink="settings">
+  <li class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="settings" *ngIf="role === 'superviseur'">
+      <i class="fas fa-fw fas fa-cog"></i>
+      <span>Settings</span>
+    </a>
+    <a class="nav-link" routerLink="settings/admin" *ngIf="role === 'admin'">
       <i class="fas fa-fw fas fa-cog"></i>
       <span>Settings</span>
     </a>

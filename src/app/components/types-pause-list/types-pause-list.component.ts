@@ -131,9 +131,10 @@ export class TypesPauseListComponent implements OnInit {
   }
 
   onPageNext() {
-    if(this.page < this.totalPages - 1)
+    if(this.page < this.totalPages - 1) {
       this.page++;
-    this.getData();
+      this.getData();
+    }
   }
 
   onPagePrevious() {

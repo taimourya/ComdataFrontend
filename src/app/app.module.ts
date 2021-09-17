@@ -25,6 +25,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { ChartsModule } from 'ng2-charts';
 import { TypesPauseListComponent } from './components/types-pause-list/types-pause-list.component';
+import { SettingsAdminComponent } from './components/settings-admin/settings-admin.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { TypesPauseListComponent } from './components/types-pause-list/types-pau
     NotFoundComponent,
     HomeComponent,
     TypesPauseListComponent,
+    SettingsAdminComponent,
   ],
     imports: [
         BrowserModule,
