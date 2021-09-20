@@ -86,16 +86,19 @@ export class ActivitesListComponent implements OnInit {
   }
 
   onEnable(id: number){
-
-    this.adminService.enableActivite(id).subscribe(data => {
-      this.getData();
-    });
+    if(confirm('etes vous sur de vouloir continuer?')) {
+      this.adminService.enableActivite(id).subscribe(data => {
+        this.getData();
+      });
+    }
   }
 
   onDisable(id: number) {
-    this.adminService.disableActivite(id).subscribe(data => {
-      this.getData();
-    });
+    if(confirm('etes vous sur de vouloir continuer?')) {
+      this.adminService.disableActivite(id).subscribe(data => {
+        this.getData();
+      });
+    }
   }
 
   closeMessage() {
@@ -125,7 +128,7 @@ export class ActivitesListComponent implements OnInit {
     }
   }
 
-  onChangeTemps(form: NgForm, temps: string, source: number) {
+  onChangeTemps(temps: string, source: number) {
 
     if(temps === 'ms') {
       if(source === 1) {

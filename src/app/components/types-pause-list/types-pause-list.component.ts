@@ -102,12 +102,14 @@ export class TypesPauseListComponent implements OnInit {
 
 
   onDelete(id: number) {
-    this.adminService.deleteType(id).subscribe(data => {
-      this.getData();
-      this.messageSuccess = 'le type a été supprimer';
-    }, error => {
-      this.messageFailed = 'impossible de supprimer ce type car il est deja utilisé'
-    });
+    if(confirm('etes vous sur de vouloir continuer?')) {
+      this.adminService.deleteType(id).subscribe(data => {
+        this.getData();
+        this.messageSuccess = 'le type a été supprimer';
+      }, error => {
+        this.messageFailed = 'impossible de supprimer ce type car il est deja utilisé'
+      });
+    }
   }
 
   onStartEdit(id: number, libelle: string) {

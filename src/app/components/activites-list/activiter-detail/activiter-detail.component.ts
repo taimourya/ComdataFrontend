@@ -103,15 +103,19 @@ export class ActiviterDetailComponent implements OnInit {
 
 
   onActiver() {
-    this.adminService.enableActivite(this.id).subscribe(data => {
-      this.getActiviter();
-    });
+    if(confirm('etes vous sur de vouloir continuer?')) {
+      this.adminService.enableActivite(this.id).subscribe(data => {
+        this.getActiviter();
+      });
+    }
   }
 
   onDesactiver() {
-    this.adminService.disableActivite(this.id).subscribe(data => {
-      this.getActiviter();
-    });
+    if(confirm('etes vous sur de vouloir continuer?')) {
+      this.adminService.disableActivite(this.id).subscribe(data => {
+        this.getActiviter();
+      });
+    }
   }
 
 }

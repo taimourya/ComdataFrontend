@@ -31,16 +31,38 @@
         <input type="date" class="form-control" [(ngModel)]="dateToFilter" (change)="onFilterChange()">
       </div>
     </div>
+  </div>
 
-
+  <div class="row mb-4">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-title">
+          <h6 class="text-primary text-center mt-4"> statistique globale de l'activité </h6>
+        </div>
+        <div class="card-body">
+          <div *ngIf="chartActivite == null">
+            <h4 class="text-primary">Aucun resultat</h4>
+          </div>
+          <canvas *ngIf="chartActivite != null" baseChart
+                  [data]="chartActivite.datas"
+                  [labels]="chartActivite.labels"
+                  [options]="ChartOptions"
+                  [legend]="ChartLegend"
+                  chartType="pie">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-3"></div>
   </div>
 
   <div class="row mb-3">
 
-    <div *ngIf="charts.length == 0">
+    <div *ngIf="chartsActiviterByColl.length == 0">
       <h4 class="text-primary">Aucun resultat</h4>
     </div>
-    <div class="col-6 mb-2" *ngFor="let chart of charts">
+    <div class="col-6 mb-2" *ngFor="let chart of chartsActiviterByColl">
       <div class="card">
         <div class="card-title">
           <h6 class="text-primary text-center mt-4"><a [routerLink]="['/user/'+chart.matricule]">{{chart.fullname}}</a> </h6>

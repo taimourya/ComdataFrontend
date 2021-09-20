@@ -109,40 +109,44 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
 
   onEnable(matricule: string){
-    if(this.role == 'admin') {
-      this.adminService.enableUser(matricule).subscribe(data => {
-        this.getData();
-        this.messageSuccess = "utilisateur activer";
-      }, error => {
-        this.messageFailed = "impossible d'activer l'utilisateur";
-      });
-    }
-    else {
-      this.superviseurService.enableCollaborateur(matricule).subscribe(data => {
-        this.getData();
-        this.messageSuccess = "utilisateur activer";
-      }, error => {
-        this.messageFailed = "impossible d'activer desactiver l'utilisateur";
-      });
+    if(confirm('etes vous sur de vouloir continuer?')) {
+      if(this.role == 'admin') {
+        this.adminService.enableUser(matricule).subscribe(data => {
+          this.getData();
+          this.messageSuccess = "utilisateur activer";
+        }, error => {
+          this.messageFailed = "impossible d'activer l'utilisateur";
+        });
+      }
+      else {
+        this.superviseurService.enableCollaborateur(matricule).subscribe(data => {
+          this.getData();
+          this.messageSuccess = "utilisateur activer";
+        }, error => {
+          this.messageFailed = "impossible d'activer desactiver l'utilisateur";
+        });
+      }
     }
   }
 
   onDisable(matricule: string) {
-    if(this.role == 'admin') {
-      this.adminService.disableUser(matricule).subscribe(data => {
-        this.getData();
-        this.messageSuccess = "utilisateur desactiver";
-      }, error => {
-        this.messageFailed = "impossible de desactiver l'utilisateur";
-      });
-    }
-    else {
-      this.superviseurService.disableCollaborateur(matricule).subscribe(data => {
-        this.getData();
-        this.messageSuccess = "utilisateur desactiver";
-      }, error => {
-        this.messageFailed = "impossible de desactiver l'utilisateur";
-      });
+    if(confirm('etes vous sur de vouloir continuer?')) {
+      if(this.role == 'admin') {
+        this.adminService.disableUser(matricule).subscribe(data => {
+          this.getData();
+          this.messageSuccess = "utilisateur desactiver";
+        }, error => {
+          this.messageFailed = "impossible de desactiver l'utilisateur";
+        });
+      }
+      else {
+        this.superviseurService.disableCollaborateur(matricule).subscribe(data => {
+          this.getData();
+          this.messageSuccess = "utilisateur desactiver";
+        }, error => {
+          this.messageFailed = "impossible de desactiver l'utilisateur";
+        });
+      }
     }
   }
 

@@ -17,7 +17,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     responsive: true
   };
   ChartLegend = true;
-  charts: any = [];
+  chartsActiviterByColl: any = [];
+  chartActivite: any;
 
   activites: any = [];
 
@@ -37,23 +38,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if(this.authRole == 'admin') {
         this.getActivites();
       }
-      this.getStatsPieActivite();
+      this.getStatsPieActiviteByColl();
     });
   }
 
 
-  getStatsPieActivite() {
+  getStatsPieActiviteByColl() {
     if(this.authRole == 'admin') {
       this.adminService.fetchStatistiquesPieByActivite(
         this.selectedActivite,
         this.dateFromFilter,
         this.dateToFilter
       ).subscribe(data => {
-        this.charts = [];
+        this.addToChartActiviter(data);
+        this.chartsActiviterByColl = [];
         let datan: any = data;
         for(let i = 0; i < datan.statsCollaborateurs.length; i++) {
           let stats = datan.statsCollaborateurs[i];
-          this.addToChartPie(stats);
+          this.addToChartActiviterByCollPie(stats);
         }
       });
     }
@@ -62,17 +64,38 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.dateFromFilter,
         this.dateToFilter
       ).subscribe(data => {
-        this.charts = [];
+        this.addToChartActiviter(data);
+        this.chartsActiviterByColl = [];
         let datan: any = data;
         for(let i = 0; i < datan.statsCollaborateurs.length; i++) {
           let stats = datan.statsCollaborateurs[i];
-          this.addToChartPie(stats);
+          this.addToChartActiviterByCollPie(stats);
         }
       });
     }
   }
 
-  addToChartPie(data: any) {
+
+  addToChartActiviter(data: any) {
+    console.log(data);
+    let chart: any = {
+      activiter_id: data.activiter_id,
+      activiter_name: data.activiter_name,
+      labels: [
+        'actif',
+        'pause',
+        'inactif'
+      ],
+      datas: [
+        data.activitesPercent.toFixed(2),
+        data.pausesPercent.toFixed(2),
+        data.inactivitesPercent.toFixed(2)
+      ],
+    }
+    this.chartActivite = chart;
+  }
+
+  addToChartActiviterByCollPie(data: any) {
     let chart: any = {
       matricule: data.collaborateur_matricule,
       fullname: data.collaborateur_fullname,
@@ -87,7 +110,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         data.inactivitesPercent.toFixed(2)
       ],
     }
-    this.charts.push(chart);
+    this.chartsActiviterByColl.push(chart);
   }
 
   getActivites() {
@@ -102,7 +125,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   onFilterChange() {
     console.log('date from : ' + this.dateFromFilter);
-    this.getStatsPieActivite();
+    this.getStatsPieActiviteByColl();
   }
 
   ngOnDestroy(): void {

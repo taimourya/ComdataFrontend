@@ -59,9 +59,9 @@
                     <span *ngIf="temps1 == 60*1000" class="bg-primary text-white">M</span>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" (click)="onChangeTemps(f, 'ms', 1)">Milisecondes</a>
-                    <a class="dropdown-item" (click)="onChangeTemps(f, 's', 1)">Secondes</a>
-                    <a class="dropdown-item" (click)="onChangeTemps(f, 'm', 1)">Minutes</a>
+                    <a class="dropdown-item" (click)="onChangeTemps('ms', 1)">Milisecondes</a>
+                    <a class="dropdown-item" (click)="onChangeTemps('s', 1)">Secondes</a>
+                    <a class="dropdown-item" (click)="onChangeTemps('m', 1)">Minutes</a>
                   </div>
                 </div>
                 <input type="number" class="form-control" aria-label="Text input with dropdown button"
@@ -76,9 +76,9 @@
                     <span *ngIf="temps2 == 60*1000" class="bg-primary text-white">M</span>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" (click)="onChangeTemps(f, 'ms', 2)">Milisecondes</a>
-                    <a class="dropdown-item" (click)="onChangeTemps(f, 's', 2)">Secondes</a>
-                    <a class="dropdown-item" (click)="onChangeTemps(f, 'm', 2)">Minutes</a>
+                    <a class="dropdown-item" (click)="onChangeTemps('ms', 2)">Milisecondes</a>
+                    <a class="dropdown-item" (click)="onChangeTemps('s', 2)">Secondes</a>
+                    <a class="dropdown-item" (click)="onChangeTemps('m', 2)">Minutes</a>
                   </div>
                 </div>
                 <input type="number" class="form-control" aria-label="Text input with dropdown button"
