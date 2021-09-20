@@ -20,25 +20,44 @@ export class AccountService {
   imageStatus = this.image.asObservable();
 
 
-  constructor(private authService : AuthService,
-              private webSocketService: WebSocketService) { }
+  constructor(private authService : AuthService) { }
 
   changeStatus(value:boolean){
-      this.loggedIn.next(value);
       if(value) {
         this.authService.fetchProfil().subscribe(data => {
           console.log(data);
-          let datan : any = data;
-          this.userRole.next(datan.roleName);
-          this.authService.setRole(datan.roleName);
-          this.fullname.next(datan.fullName);
-          this.matricule.next(datan.matricule);
-          this.image.next(datan.imageUri);
+          this.startAccount(data);
         }, err => {
+          this.stopAccount();
           console.log(err);
         });
     }
+    else {
+      this.stopAccount();
+    }
   }
+
+  private startAccount(data: any) {
+    this.loggedIn.next(true);
+    this.userRole.next(data.roleName);
+    this.authService.setRole(data.roleName);
+    this.fullname.next(data.fullName);
+    this.matricule.next(data.matricule);
+    this.image.next(data.imageUri);
+  }
+
+  private stopAccount() {
+    this.authService.setToken(null);
+    this.authService.setRole('');
+    this.userRole.next('');
+    this.authService.setRole('');
+    this.fullname.next('');
+    this.matricule.next('');
+    this.image.next('');
+    this.loggedIn.next(false);
+  }
+
+
 
 
 }

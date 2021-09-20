@@ -85,11 +85,10 @@ export class SettingsAdminComponent implements OnInit {
     this.messageFailed = '';
   }
 
-  startDownload(fileName: string, body: any) {
+  startDownload(filename: string, body: any) {
     let binaryData = [];
     binaryData.push(body);
     let downloadLink = document.createElement('a');
-    // @ts-ignore
     downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: 'blob' }));
     downloadLink.setAttribute('download', filename);
     document.body.appendChild(downloadLink);

@@ -98,7 +98,6 @@ export class WebSocketService {
   }
 
   private listenInactiviter() {
-    //window.onload = this.resetTemps;
     window.ontouchstart = () => {
       this.resetTemps();
     };

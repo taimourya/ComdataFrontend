@@ -13,7 +13,8 @@ export class AuthService {
   constructor(private http:HttpClient) { }
 
   isAuth() {
-    return this.getToken() != 'null';
+    let token = this.getToken();
+    return token != null && token != '' && token != 'null';
   }
 
   getToken() {
