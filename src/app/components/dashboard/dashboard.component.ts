@@ -86,12 +86,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
         'pause',
         'inactif'
       ],
-      datas: [
-        data.activitesPercent.toFixed(2),
-        data.pausesPercent.toFixed(2),
-        data.inactivitesPercent.toFixed(2)
-      ],
-    }
+      datasets: [{
+        label: 'dataset',
+        data: [
+          data.activitesPercent.toFixed(2),
+          data.pausesPercent.toFixed(2),
+          data.inactivitesPercent.toFixed(2)
+        ],
+        backgroundColor: [
+          'rgb(26,128,220)',
+          'rgb(224,101,33)',
+          'rgb(69,189,92)'
+        ],
+      }]
+    };
     this.chartActivite = chart;
   }
 
@@ -104,11 +112,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
         'pause',
         'inactif'
       ],
-      datas: [
-        data.activitesPercent.toFixed(2),
-        data.pausesPercent.toFixed(2),
-        data.inactivitesPercent.toFixed(2)
-      ],
+      datasets: [{
+        label: 'dataset',
+        data: [
+          data.activitesPercent.toFixed(2),
+          data.pausesPercent.toFixed(2),
+          data.inactivitesPercent.toFixed(2)
+        ],
+        backgroundColor: [
+          'rgb(26,128,220)',
+          'rgb(224,101,33)',
+          'rgb(69,189,92)'
+        ],
+      }],
     }
     this.chartsActiviterByColl.push(chart);
   }

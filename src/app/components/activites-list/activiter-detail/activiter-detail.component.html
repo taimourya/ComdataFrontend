@@ -28,9 +28,10 @@
       <b [ngClass]="{'text-success': data.active, 'text-danger': !data.active}">
         {{ data.active? 'activer':'desactiver' }}
       </b>
-      vous pouvez {{ data.active? 'le désactiver':'l\'activer' }} en cliquant sur
-      <button *ngIf="data.active" (click)="onDesactiver()" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></button>
-      <button *ngIf="!data.active" (click)="onActiver()" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></button>
+      <span class="toggle-action">
+        <a *ngIf="data.active" (click)="onDesactiver()" class="text-success"><i class="fas fa-fw fa-toggle-on"></i></a>
+        <a *ngIf="!data.active" (click)="onActiver()" class="text-dark"><i class="fas fa-fw fa-toggle-off"></i></a>
+      </span>
     </h5>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">

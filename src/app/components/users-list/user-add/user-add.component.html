@@ -96,12 +96,10 @@
         </div>
         <div class="col-6">
           <div class="form-group" *ngIf="roleForm != 'admin'">
-            <label for="activiter">activiter</label>
-            <select class="form-control" id="activiter" aria-describedby="emailHelp"
-                    ngModel required name="activiter">
-              <option value="1">UBER</option>
-              <option value="2">Orange</option>
-              <option value="3">Comdata</option>
+            <label>activiter</label>
+            <select name="" class="form-control"  ngModel required name="activiter">
+              <option value="-1">All</option>
+              <option *ngFor="let a of activites" [ngValue]="a.id">{{a.nom}}</option>
             </select>
           </div>
         </div>

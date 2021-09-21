@@ -12,6 +12,8 @@ import {Router} from "@angular/router";
 })
 export class UserAddComponent implements OnInit {
 
+  activites :any = [];
+
   userData: any = {
     'firstname': '',
     'lastname': '',
@@ -35,6 +37,7 @@ export class UserAddComponent implements OnInit {
               private route: Router) { }
 
   ngOnInit(): void {
+    this.getActivites();
     this.authService.afterSetRole.subscribe(role => {
       this.role = role;
     });
@@ -87,6 +90,16 @@ export class UserAddComponent implements OnInit {
         console.log(error);
       })
     }
+  }
+
+  getActivites() {
+      this.adminService.getActivites('', 0, 100).subscribe(data => {
+        let datan: any = data;
+        this.activites = datan.content;
+      }, error => {
+        console.log('error actitivtes list-user');
+        console.log(error);
+      })
   }
 
 }

@@ -44,8 +44,9 @@
           <div *ngIf="chartActivite == null">
             <h4 class="text-primary">Aucun resultat</h4>
           </div>
-          <canvas *ngIf="chartActivite != null" baseChart
-                  [data]="chartActivite.datas"
+          <canvas *ngIf="chartActivite != null"
+                  baseChart
+                  [datasets]="chartActivite.datasets"
                   [labels]="chartActivite.labels"
                   [options]="ChartOptions"
                   [legend]="ChartLegend"
@@ -69,7 +70,7 @@
         </div>
         <div class="card-body">
           <canvas baseChart
-                  [data]="chart.datas"
+                  [datasets]="chart.datasets"
                   [labels]="chart.labels"
                   [options]="ChartOptions"
                   [legend]="ChartLegend"

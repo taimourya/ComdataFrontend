@@ -29,10 +29,9 @@
           <b [ngClass]="{'text-success': userData.active, 'text-danger': !userData.active}">
             {{ userData.active? 'activer':'desactiver' }}
           </b>
-          <span *ngIf="authMatricule != matricule">
-            vous pouvez {{ userData.active? 'le désactiver':'l\'activer' }} en cliquant sur
-            <button *ngIf="userData.active" (click)="onDisable()" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></button>
-            <button *ngIf="!userData.active" (click)="onEnable()" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></button>
+          <span *ngIf="authMatricule != matricule" class="toggle-action">
+            <a *ngIf="userData.active" (click)="onDisable()" class="text-success"><i class="fas fa-fw fa-toggle-on"></i></a>
+            <a *ngIf="!userData.active" (click)="onEnable()" class="text-dark"><i class="fas fa-fw fa-toggle-off"></i></a>
           </span>
         </h5>
         <h5 class="text-primary">Compte <b class="text-success">{{ userData.roleName}}</b></h5>

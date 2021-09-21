@@ -36,20 +36,20 @@
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active mt-5" id="pills-export" role="tabpanel" aria-labelledby="pills-export-tab">
             <div class="mt-2">
-              <h4><a (click)="onGetUriUsers()" class="text-dark">exporter les utilisateurs</a></h4>
-              <h6><button (click)="onStartDownloadUsers()" *ngIf="uriUsers != ''" class="text-primary">Lien de telechargement</button></h6>
+              <h4><a (click)="onGetUriUsers()" class="text-danger">exporter les utilisateurs</a></h4>
+              <h6><a (click)="onStartDownloadUsers()" *ngIf="uriUsers != ''" class="text-primary">Lien de telechargement</a></h6>
             </div>
             <div class="mt-2">
-              <h4><a (click)="onGetUriActivites()" class="text-dark">exporter les activités</a></h4>
-              <h6><button (click)="onStartDownloadActivites()" *ngIf="uriActivites != ''" class="text-primary">Lien de telechargement</button></h6>
+              <h4><a (click)="onGetUriActivites()" class="text-danger">exporter les activités</a></h4>
+              <h6><a (click)="onStartDownloadActivites()" *ngIf="uriActivites != ''" class="text-primary">Lien de telechargement</a></h6>
             </div>
             <div class="mt-2">
-              <h4><a (click)="onGetUriTypes()" class="text-dark">exporter les types de pauses</a></h4>
-              <h6><button (click)="onStartDownloadTypes()" *ngIf="uriTypes != ''" class="text-primary">Lien de telechargement</button></h6>
+              <h4><a (click)="onGetUriTypes()" class="text-danger">exporter les types de pauses</a></h4>
+              <h6><a (click)="onStartDownloadTypes()" *ngIf="uriTypes != ''" class="text-primary">Lien de telechargement</a></h6>
             </div>
             <div class="mt-2">
-              <h4><a (click)="onGetUriTemps()" class="text-dark">exporter les temps d'activités/pauses/inactivités</a></h4>
-              <h6><button (click)="onStartDownloadTemps()" *ngIf="uriTemps != ''" class="text-primary">Lien de telechargement</button></h6>
+              <h4><a (click)="onGetUriTemps()" class="text-danger">exporter les temps d'activités/pauses/inactivités</a></h4>
+              <h6><a (click)="onStartDownloadTemps()" *ngIf="uriTemps != ''" class="text-primary">Lien de telechargement</a></h6>
             </div>
           </div>
           <div class="tab-pane fade mt-5" id="pills-import" role="tabpanel" aria-labelledby="pills-import-tab">

@@ -99,18 +99,16 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
+                <th>Toggle</th>
                 <th>ID</th>
                 <th>Nom</th>
-                <th>date création</th>
-                <th>active</th>
                 <th>parametre inactivité</th>
                 <th>parametre fermeture</th>
-                <th>action</th>
+                <th>Date création</th>
               </tr>
             </thead>
             <tbody>
             <tr *ngIf="isLoading">
-              <td></td>
               <td></td>
               <td></td>
               <td><div class="spinner-border text-primary"></div></td>
@@ -122,19 +120,15 @@
               <td>aucun resultat</td>
             </tr>
               <tr *ngFor="let a of activites">
+                <td class="toggle-action">
+                  <a (click)="onEnable(a.id)" class="text-gray" *ngIf="!a.active"><i class="fas fa-fw fa-toggle-off"></i></a>
+                  <a (click)="onDisable(a.id)" class="text-success" *ngIf="a.active"><i class="fas fa-fw fa-toggle-on"></i></a>
+                </td>
                 <td><a [routerLink]="['/activiter/'+a.id]">{{a.id}}</a></td>
                 <td>{{a.nom}}</td>
                 <td>{{a.date_creation | date :'yyyy-dd-mm & HH:mm'}}</td>
-                <td>
-                  <span class="badge badge-success" *ngIf="a.active">Oui</span>
-                  <span class="badge badge-danger" *ngIf="!a.active">Non</span>
-                </td>
                 <td>{{a.tinactiviteMs}} ms</td>
                 <td>{{a.tfermetureSessionMs}} ms</td>
-                <td>
-                  <button *ngIf="a.active" (click)="onDisable(a.id)" class="btn btn-sm btn-danger"><i class="fas fa-fw fa-download"></i></button>
-                  <button *ngIf="!a.active" (click)="onEnable(a.id)" class="btn btn-sm btn-success"><i class="fas fa-fw fa-upload"></i></button>
-                </td>
               </tr>
             </tbody>
           </table>

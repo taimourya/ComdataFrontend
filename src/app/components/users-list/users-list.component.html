@@ -100,15 +100,14 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
+                <th>Toggle</th>
                 <th>Matricule</th>
                 <th>Fullname</th>
+                <th>Role</th>
+                <th>Activité</th>
                 <th>Téléphone</th>
                 <th>Cin</th>
-                <th>naissance</th>
-                <th>active</th>
-                <th>role</th>
-                <th>activité</th>
-                <th>action</th>
+                <th>Naissance</th>
               </tr>
             </thead>
             <tbody>
@@ -121,29 +120,24 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
               </tr>
               <tr *ngIf="users.length == 0">
                 <td>aucun resultat</td>
               </tr>
               <tr *ngFor="let u of users">
+                <td class="toggle-action">
+                  <a (click)="onEnable(u.matricule)" class="text-gray" *ngIf="!u.active"><i class="fas fa-fw fa-toggle-off"></i></a>
+                  <a (click)="onDisable(u.matricule)" class="text-success" *ngIf="u.active"><i class="fas fa-fw fa-toggle-on"></i></a>
+                </td>
                 <td><a [routerLink]="['/user/'+u.matricule]">{{u.matricule}}</a></td>
                 <td>{{u.fullName}}</td>
-                <td>{{u.phone}}</td>
-                <td>{{u.cin}}</td>
-                <td>{{u.date_naissance}}</td>
-                <td>
-                  <span class="badge badge-success" *ngIf="u.active">Oui</span>
-                  <span class="badge badge-danger" *ngIf="!u.active">Non</span>
-                </td>
                 <td>{{u.roleName}}</td>
                 <td>
                   <span *ngIf="u.roleName != 'admin'">{{u.activiterName}}</span>
                 </td>
-                <td>
-                  <button (click)="onEnable(u.matricule)" class="btn btn-sm btn-success" *ngIf="!u.active"><i class="fas fa-fw fa-upload"></i></button>
-                  <button (click)="onDisable(u.matricule)" class="btn btn-sm btn-danger" *ngIf="u.active"><i class="fas fa-fw fa-download"></i></button>
-                </td>
+                <td>{{u.phone}}</td>
+                <td>{{u.cin}}</td>
+                <td>{{u.date_naissance}}</td>
               </tr>
             </tbody>
           </table>

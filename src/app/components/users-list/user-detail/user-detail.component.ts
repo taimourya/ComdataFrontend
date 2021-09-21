@@ -36,10 +36,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
               private accountService: AccountService) { }
 
   ngOnInit(): void {
-
+    this.matricule = this.route.snapshot.params['userId'];
     this.subscribeMatricule = this.accountService.matriculeStatus.subscribe(matricule => {
       this.authMatricule = matricule;
-      this.matricule = this.route.snapshot.params['userId'];
       let sub = this.authService.afterSetRole.subscribe(role => {
         this.role = role;
         this.getUser();
