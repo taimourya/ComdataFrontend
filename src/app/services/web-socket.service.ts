@@ -29,22 +29,6 @@ export class WebSocketService {
   }
 
   private toTime(tempsSec: number) {
-    /*let h: number = 0;
-    let m: number = tempsSec / 60;
-    let s: number = 0;
-    if(m>=60) {
-      while(m>=60) {
-        h++;
-        m-=60;
-      }
-      s = m - parseInt(m.toString());
-      m -= s;
-    }
-    else {
-      m = 0;
-      s = tempsSec;
-    }
-    console.log(h + ' : ' + m + ' : ' + s);*/
     return new Date(tempsSec * 1000).toISOString().substr(11, 8);
   }
 
