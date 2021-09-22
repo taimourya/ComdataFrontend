@@ -98,7 +98,6 @@
           <div class="form-group" *ngIf="roleForm != 'admin'">
             <label>activiter</label>
             <select name="" class="form-control"  ngModel required name="activiter">
-              <option value="-1">All</option>
               <option *ngFor="let a of activites" [ngValue]="a.id">{{a.nom}}</option>
             </select>
           </div>
