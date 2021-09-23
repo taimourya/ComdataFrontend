@@ -77,12 +77,12 @@ export class TypesPauseListComponent implements OnInit {
         libelle: form.value['libelle'],
       }).subscribe(data => {
         console.log(data);
-        this.messageSuccess = 'type ajouter avec succes';
         this.getData();
+        this.showSuccess('type ajouter avec succes');
       }, error => {
-        this.messageFailed = "impossible d'ajouter le type";
         console.log('error add activite-list');
         console.log(error);
+        this.showError("impossible d'ajouter le type");
       });
     }
     else {
@@ -90,12 +90,12 @@ export class TypesPauseListComponent implements OnInit {
         libelle: form.value['libelle'],
       }).subscribe(data => {
         console.log(data);
-        this.messageSuccess = 'type ajouter avec succes';
         this.getData();
+        this.showSuccess('type ajouter avec succes');
       }, error => {
-        this.messageFailed = "impossible d'ajouter le type";
         console.log('error add activite-list');
         console.log(error);
+        this.showError("impossible d'ajouter le type");
       });
     }
   }
@@ -105,9 +105,9 @@ export class TypesPauseListComponent implements OnInit {
     if(confirm('etes vous sur de vouloir continuer?')) {
       this.adminService.deleteType(id).subscribe(data => {
         this.getData();
-        this.messageSuccess = 'le type a été supprimer';
+        this.showSuccess('le type a été supprimer');
       }, error => {
-        this.messageFailed = 'impossible de supprimer ce type car il est deja utilisé'
+        this.showError('impossible de supprimer ce type car il est deja utilisé');
       });
     }
   }
@@ -121,6 +121,16 @@ export class TypesPauseListComponent implements OnInit {
   closeMessage() {
     this.messageSuccess = '';
     this.messageFailed = '';
+  }
+
+  showSuccess(msg: string) {
+    this.messageSuccess = msg;
+    this.messageFailed = '';
+  }
+
+  showError(msg: string) {
+    this.messageSuccess = '';
+    this.messageFailed = msg;
   }
 
   onFilterChange() {

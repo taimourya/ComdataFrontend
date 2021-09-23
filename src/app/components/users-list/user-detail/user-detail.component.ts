@@ -115,12 +115,12 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     if(this.matricule == this.authMatricule) {
       this.authService.editProfil(body).subscribe(data => {
         this.editMode = false;
-        this.messageSuccess = 'informations modifier';
+        this.showSuccess("informations modifier");
         this.accountService.changeStatus(true);
       }, error => {
         console.log('error lors de la modification user');
         console.log(error);
-        this.messageFailed = 'erreur modification des informations';
+        this.showError("erreur modification des informations");
       });
     }
     else if(this.role == 'admin') {
@@ -130,23 +130,23 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       this.adminService.editUser(this.matricule, body).subscribe(data => {
         console.log(data);
         this.editMode = false;
-        this.messageSuccess = 'informations modifier';
+        this.showSuccess("informations modifier");
       }, error => {
         console.log('error lors de la modification user');
         console.log(error);
-        this.messageFailed = 'erreur modification des informations';
+        this.showError("erreur modification des informations");
       });
     }
     else {
       this.superviseurService.editCollaborateur(this.matricule, body).subscribe(data => {
         console.log(data);
         this.editMode = false;
-        this.messageSuccess = 'informations modifier';
+        this.showSuccess("informations modifier");
         this.authService.setRole(this.role);
       }, error => {
         console.log('error lors de la modification user');
         console.log(error);
-        this.messageFailed = 'erreur modification des informations';
+        this.showError("erreur modification des informations");
       })
     }
   }
@@ -156,17 +156,17 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       if(this.role == 'admin') {
         this.adminService.enableUser(this.matricule).subscribe(data => {
           this.getUser();
-          this.messageSuccess = "utilisateur activer";
+          this.showSuccess("utilisateur activer");
         }, error => {
-          this.messageFailed = "impossible d'activer l'utilisateur";
+          this.showError("impossible d'activer l'utilisateur");
         });
       }
       else {
         this.superviseurService.enableCollaborateur(this.matricule).subscribe(data => {
           this.getUser();
-          this.messageSuccess = "utilisateur activer";
+          this.showSuccess("utilisateur activer");
         }, error => {
-          this.messageFailed = "impossible d'activer desactiver l'utilisateur";
+          this.showError("impossible d'activer l'utilisateur");
         });
       }
     }
@@ -177,17 +177,17 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       if(this.role == 'admin') {
         this.adminService.disableUser(this.matricule).subscribe(data => {
           this.getUser();
-          this.messageSuccess = "utilisateur desactiver";
+          this.showSuccess("utilisateur desactiver");
         }, error => {
-          this.messageFailed = "impossible de desactiver l'utilisateur";
+          this.showError("impossible de desactiver l'utilisateur");
         });
       }
       else {
         this.superviseurService.disableCollaborateur(this.matricule).subscribe(data => {
           this.getUser();
-          this.messageSuccess = "utilisateur desactiver";
+          this.showSuccess("utilisateur desactiver");
         }, error => {
-          this.messageFailed = "impossible de desactiver l'utilisateur";
+          this.showError("impossible de desactiver l'utilisateur");
         });
       }
     }
@@ -198,15 +198,25 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.authService.changeImage(event.target.files[0]).subscribe((data : any) => {
       this.userData.imageUri = data.imageUri;
       this.accountService.changeStatus(true);
-      this.messageSuccess = "votre image a été changé avec succes";
+      this.showSuccess("votre image a été changé avec succes");
     }, error => {
-      this.messageFailed = "upload de l'image impossible";
+      this.showError("upload de l'image impossible");
     });
   }
 
   closeMessage() {
     this.messageSuccess = '';
     this.messageFailed = '';
+  }
+
+  showSuccess(msg: string) {
+    this.messageSuccess = msg;
+    this.messageFailed = '';
+  }
+
+  showError(msg: string) {
+    this.messageSuccess = '';
+    this.messageFailed = msg;
   }
 
   ngOnDestroy(): void {

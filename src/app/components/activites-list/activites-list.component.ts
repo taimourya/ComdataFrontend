@@ -76,12 +76,10 @@ export class ActivitesListComponent implements OnInit {
       tfermetureSessionMs: form.value['tfermetureSessionMs'] * this.temps2
     }).subscribe(data => {
       console.log(data);
-      this.messageSuccess = 'activiter ajouter avec succes';
       this.getData();
+      this.showSuccess('activiter ajouter avec succes');
     }, error => {
-      this.messageFailed = "impossible d'ajouter l'activiter";
-      console.log('error add activite-list');
-      console.log(error);
+      this.showError('impossible d\'ajouter l\'activiter');
     });
   }
 
@@ -89,6 +87,7 @@ export class ActivitesListComponent implements OnInit {
     if(confirm('etes vous sur de vouloir continuer?')) {
       this.adminService.enableActivite(id).subscribe(data => {
         this.getData();
+        this.showSuccess('activation effctué');
       });
     }
   }
@@ -97,6 +96,7 @@ export class ActivitesListComponent implements OnInit {
     if(confirm('etes vous sur de vouloir continuer?')) {
       this.adminService.disableActivite(id).subscribe(data => {
         this.getData();
+        this.showSuccess('desactivation effctué');
       });
     }
   }
@@ -105,6 +105,17 @@ export class ActivitesListComponent implements OnInit {
     this.messageSuccess = '';
     this.messageFailed = '';
   }
+
+  showSuccess(msg: string) {
+    this.messageSuccess = msg;
+    this.messageFailed = '';
+  }
+
+  showError(msg: string) {
+    this.messageSuccess = '';
+    this.messageFailed = msg;
+  }
+
   onFilterChange() {
     this.getData();
   }

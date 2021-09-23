@@ -46,9 +46,9 @@ export class SettingsComponent implements OnInit {
       this.data = data;
       this.data.tinactiviteMs /=  this.temps1;
       this.data.tfermetureSessionMs /=  this.temps2;
-      this.messageSuccess = 'paramétre enregistrer'
+      this.showSuccess('paramétre enregistrer');
     }, error => {
-      this.messageSuccess = 'la modification de paramétre a échouer  '
+      this.showError('la modification de paramétre a échouer')
     });
   }
 
@@ -93,4 +93,13 @@ export class SettingsComponent implements OnInit {
     this.messageFailed = '';
   }
 
+  showSuccess(msg: string) {
+    this.messageSuccess = msg;
+    this.messageFailed = '';
+  }
+
+  showError(msg: string) {
+    this.messageSuccess = '';
+    this.messageFailed = msg;
+  }
 }

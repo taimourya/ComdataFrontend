@@ -49,22 +49,37 @@ export class ActiviterDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.adminService.editActivite(this.id, {
-      name: this.data.nom,
-      tfermetureSessionMs: this.data.tfermetureSessionMs * this.temps2,
-      tinactiviteMs: this.data.tinactiviteMs * this.temps1
-    }).subscribe(data => {
-      this.messageSuccess = 'modification effectué';
-    }, error => {
-      this.messageFailed = 'modification impossible';
-      console.log("edit error");
-      console.log(error);
-    });
+    if(this.editMode) {
+      this.adminService.editActivite(this.id, {
+        name: this.data.nom,
+        tfermetureSessionMs: this.data.tfermetureSessionMs * this.temps2,
+        tinactiviteMs: this.data.tinactiviteMs * this.temps1
+      }).subscribe(data => {
+        this.showSuccess('modification effectué');
+      }, error => {
+        this.showError('modification impossible');
+        console.log("edit error");
+        console.log(error);
+      });
+    }
+    else {
+      this.showError('vous devez autoriser le mode modification !');
+    }
   }
 
   closeMessage() {
     this.messageSuccess = '';
     this.messageFailed = '';
+  }
+
+  showSuccess(msg: string) {
+    this.messageSuccess = msg;
+    this.messageFailed = '';
+  }
+
+  showError(msg: string) {
+    this.messageSuccess = '';
+    this.messageFailed = msg;
   }
 
   onChangeTemps(temps: string, source: number) {

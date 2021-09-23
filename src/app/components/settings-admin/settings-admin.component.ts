@@ -57,10 +57,10 @@ export class SettingsAdminComponent implements OnInit {
     this.isLoading = true;
     this.adminService.importExcel(this.fileActivites, this.fileUsers, this.fileTypes, this.fileTemps).subscribe(() => {
       this.isLoading = false;
-      this.messageSuccess = "import effectué";
+      this.showSuccess("import effectué");
     }, error => {
       this.isLoading = false;
-      this.messageFailed = "import a échouer";
+      this.showError("import a échouer");
     });
   }
 
@@ -83,6 +83,16 @@ export class SettingsAdminComponent implements OnInit {
   closeMessage() {
     this.messageSuccess = '';
     this.messageFailed = '';
+  }
+
+  showSuccess(msg: string) {
+    this.messageSuccess = msg;
+    this.messageFailed = '';
+  }
+
+  showError(msg: string) {
+    this.messageSuccess = '';
+    this.messageFailed = msg;
   }
 
   startDownload(filename: string, body: any) {

@@ -50,11 +50,11 @@ export class HomeCollaborateurComponent implements OnInit {
 
   onPause() {
     if(this.temps.tPause > 0) {
-      this.messageFailed = 'vous ete deja en pause';
+      this.showError('vous ete deja en pause');
     }
     else {
-      this.messageSuccess = 'opération effectué';
       this.webSocketService.startPause(this.selectedType);
+      this.showSuccess('opération effectué');
     }
   }
   onPauseEnd() {
@@ -73,4 +73,13 @@ export class HomeCollaborateurComponent implements OnInit {
     this.messageFailed = '';
   }
 
+  showSuccess(msg: string) {
+    this.messageSuccess = msg;
+    this.messageFailed = '';
+  }
+
+  showError(msg: string) {
+    this.messageSuccess = '';
+    this.messageFailed = msg;
+  }
 }

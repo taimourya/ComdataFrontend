@@ -38,7 +38,11 @@ export class LoginComponent implements OnInit {
 
     }, err => {
       console.log(err);
-      this.errorMsg = 'matricule or password incorrect';
+      if(err.error.message === 'disabled')
+        this.errorMsg = 'votre compte est désactiver';
+      else {
+        this.errorMsg = 'matricule or password incorrect';
+      }
     });
   }
 

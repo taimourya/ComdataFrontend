@@ -113,17 +113,17 @@ export class UsersListComponent implements OnInit, OnDestroy {
       if(this.role == 'admin') {
         this.adminService.enableUser(matricule).subscribe(data => {
           this.getData();
-          this.messageSuccess = "utilisateur activer";
+          this.showSuccess("utilisateur activer");
         }, error => {
-          this.messageFailed = "impossible d'activer l'utilisateur";
+          this.showError("impossible d'activer l'utilisateur");
         });
       }
       else {
         this.superviseurService.enableCollaborateur(matricule).subscribe(data => {
           this.getData();
-          this.messageSuccess = "utilisateur activer";
+          this.showSuccess("utilisateur activer");
         }, error => {
-          this.messageFailed = "impossible d'activer desactiver l'utilisateur";
+          this.showError("impossible d'activer l'utilisateur");
         });
       }
     }
@@ -134,17 +134,17 @@ export class UsersListComponent implements OnInit, OnDestroy {
       if(this.role == 'admin') {
         this.adminService.disableUser(matricule).subscribe(data => {
           this.getData();
-          this.messageSuccess = "utilisateur desactiver";
+          this.showSuccess("utilisateur desactiver");
         }, error => {
-          this.messageFailed = "impossible de desactiver l'utilisateur";
+          this.showError("impossible de desactiver l'utilisateur");
         });
       }
       else {
         this.superviseurService.disableCollaborateur(matricule).subscribe(data => {
           this.getData();
-          this.messageSuccess = "utilisateur desactiver";
+          this.showSuccess("utilisateur desactiver");
         }, error => {
-          this.messageFailed = "impossible de desactiver l'utilisateur";
+          this.showError("impossible de desactiver l'utilisateur");
         });
       }
     }
@@ -153,6 +153,16 @@ export class UsersListComponent implements OnInit, OnDestroy {
   closeMessage() {
     this.messageSuccess = '';
     this.messageFailed = '';
+  }
+
+  showSuccess(msg: string) {
+    this.messageSuccess = msg;
+    this.messageFailed = '';
+  }
+
+  showError(msg: string) {
+    this.messageSuccess = '';
+    this.messageFailed = msg;
   }
 
   onFilterChange() {
