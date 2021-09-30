@@ -50,7 +50,6 @@ export class AccountService {
     this.authService.setToken(null);
     this.authService.setRole('');
     this.userRole.next('');
-    this.authService.setRole('');
     this.fullname.next('');
     this.matricule.next('');
     this.image.next('');

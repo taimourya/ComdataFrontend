@@ -20,7 +20,8 @@ import {TypesPauseListComponent} from "./components/types-pause-list/types-pause
 import {SettingsAdminComponent} from "./components/settings-admin/settings-admin.component";
 
 const routes: Routes = [
-  {path : "" , component : HomeComponent},
+  {path : "", canActivate: [AuthGuard], component : HomeComponent,
+    data: {roles: ['admin', 'superviseur', 'collaborateur']} },
   {path : "home", canActivate: [AuthGuard] , component : DashboardComponent,
     data: {roles: ['admin', 'superviseur']}},
   {path : "login/:msgErr" , component : LoginComponent, canActivate : [AfterAuthGuard]},

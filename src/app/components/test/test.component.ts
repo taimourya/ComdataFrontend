@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {compareSegments} from "@angular/compiler-cli/src/ngtsc/sourcemaps/src/segment_marker";
-import {WebSocketService} from "../../services/web-socket.service";
-import {SearchService} from "../../services/search.service";
 
 @Component({
   selector: 'app-test',
@@ -15,50 +11,35 @@ export class TestComponent implements OnInit {
 
   temps: any;
 
-  constructor(
-    private authService: AuthService,
-    private webSocketService: WebSocketService,
-    private searchService: SearchService) { }
+  constructor() { }
 
   ngOnInit(): void {
 
-    this.webSocketService.tempsSubject.subscribe(data => {
-      this.temps = data;
-    }, err => {
-      console.log(err);
-    });
 
-    this.authService.login("matcolcol1UBER", "123").subscribe(resp => {
-      console.log(resp);
-      this.authService.setToken(resp.headers.get('Authorization'));
 
-      this.webSocketService.start();
-
-    }, error => {
-      console.log(error);
-    });
-
-    this.searchService.searchSubject.subscribe(mc => {
-      console.log("subs test : " + mc);
-    }, err => {
-      console.log(err);
-    });
   }
 
   onStartPause() {
-    this.webSocketService.startPause(1);
+
+
+
   }
 
   onEndPause() {
-    this.webSocketService.endPause();
+    let socket: WebSocket = new WebSocket('ws://localhost:8085/Move');
+    socket.onopen = () => {
+      console.log('socket started');
+    };
+
+    socket.onmessage = (event: { data: string; }) => {
+      console.log('message : ' + event.data);
+    }
   }
 
   onStartInactif() {
-    this.webSocketService.startInactif();
   }
 
   onEndInactif() {
-    this.webSocketService.endInactif();
   }
 
 }

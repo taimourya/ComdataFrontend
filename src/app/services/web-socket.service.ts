@@ -9,8 +9,10 @@ import {BehaviorSubject, Subject, Subscriber, timer} from "rxjs";
 })
 export class WebSocketService {
 
+  private desktopSocketUri: string = 'ws://localhost:8085';
 
-  private websocket: any;
+  private websocketApi: any;
+  private websocketDesktop: any;
 
   tempsSubject = new Subject<any>();
   isClosed = new BehaviorSubject<boolean>(false);
@@ -43,17 +45,71 @@ export class WebSocketService {
     });
   }
 
-  public start() {
+  private emitTempsToDesktop() {
+    if(this.websocketDesktop != null) {
+      this.websocketDesktop.send("count :" + this.tActif + ','+ this.tPause + ',' + this.tInactif);
+    }
+  }
+
+  public sendTypesPauseToDesktopSocket(types: any) {
+    let msg: string = "types = ";
+    for(let i = 0; i < types.length; i++) {
+      msg += types[i].libelle + ":" + types[i].id;
+      if(i < types.length -1) {
+        msg += ",";
+      }
+    }
+    this.websocketDesktop.send(msg);
+  }
+  private startSocketDesktop(types: any) {
+    console.log('starting desktop ...');
+    let websocket = new WebSocket(this.desktopSocketUri);
+
+    this.websocketDesktop = websocket;
+    this.websocketDesktop.onerror = () => {
+      //si l'application desktop n'est pas demarer
+      //on utilise les evenements javascript comme secours
+      this.listenInactiviter();
+    }
+    this.websocketDesktop.onopen = () => {
+      console.log('started desktop !');
+      this.resetTemps();
+      this.sendTypesPauseToDesktopSocket(types)
+    }
+
+    this.websocketDesktop.onclose = () => {
+      //si l'application desktop a été fermer
+      //on utilise les evenements javascript comme secours
+      this.listenInactiviter();
+    }
+    this.websocketDesktop.onmessage = (event: { data: string; }) => {
+      console.log('from desktop : ' + event.data);
+      if(event.data === 'move') {
+        if(this.counterInactivite > 0) {
+          this.resetTemps();
+        }
+      }
+      else if(event.data.startsWith("pause")) {
+        let value: number = parseInt(event.data.split(":")[1].trim());
+        this.startPause(value);
+      }
+      else if(event.data === "stopPause") {
+        this.endPause();
+      }
+    }
+
+  }
+  public start(types: any) {
     if(!this.isOpen) {
 
       let websocket = new WebSocket(Api.ws+'/ws');
-      this.websocket = websocket;
-      this.websocket.onopen = () => {
+      this.websocketApi = websocket;
+      this.websocketApi.onopen = () => {
         let token = this.authService.getToken();
-        this.websocket.send("start : " + token);
+        this.websocketApi.send("start : " + token);
       };
 
-      this.websocket.onmessage = (event: { data: string; }) => {
+      this.websocketApi.onmessage = (event: { data: string; }) => {
         if(event.data.startsWith('count :')) {
           let splited = event.data.split(':');
           let valeur = splited[1].trim();
@@ -63,62 +119,76 @@ export class WebSocketService {
           this.tInactif = parseInt(tmps[2].trim());
           //console.log(this.tActif + " : " + this.tPause + " : " + this.tInactif);
           this.emitTempsSubject();
+          this.emitTempsToDesktop();
         }
         else if(event.data === 'success jwt') {
           this.isOpen = true;
-          this.listenInactiviter();
+          this.startSocketDesktop(types);
+          //this.listenInactiviter();
         }
         else if(event.data === 'failed jwt') {
-          this.websocket.close();
+          this.websocketApi.close();
         }
         else {
           console.log('got message : ' + event.data);
         }
       };
-      this.websocket.onclose = () => {
+      this.websocketApi.onclose = () => {
         this.stopTemps();
         this.isOpen = false;
         this.isClosed.next(true);
+        this.websocketDesktop.close();
       }
     }
   }
 
   public startPause(typePause: number) {
-    this.websocket.send('state : start/pause?id='+typePause);
+    this.websocketApi.send('state : start/pause?id='+typePause);
   }
 
   public endPause() {
-    this.websocket.send('state : end/pause');
+    this.websocketApi.send('state : end/pause');
   }
 
   public startInactif() {
-    this.websocket.send('state : start/inactif');
+    this.websocketApi.send('state : start/inactif');
   }
 
   public endInactif() {
-    this.websocket.send('state : end/inactif');
+    this.websocketApi.send('state : end/inactif');
   }
 
   public endSession() {
     if(this.isOpen)
-      this.websocket.send('state : end/session');
+      this.websocketApi.send('state : end/session');
   }
 
   private listenInactiviter() {
+    this.resetTemps();
     window.ontouchstart = () => {
-      this.resetTemps();
+      if(this.counterInactivite > 0) {
+        this.resetTemps();
+      }
     };
     window.onclick = () => {
-      this.resetTemps();
+      if(this.counterInactivite > 0) {
+        this.resetTemps();
+      }
     };
     window.onkeypress = () => {
-      this.resetTemps();
+      if(this.counterInactivite > 0) {
+        this.resetTemps();
+      }
     };
     window.onmousemove = () => {
-      this.resetTemps();
+      if(this.counterInactivite > 0) {
+        this.resetTemps();
+      }
     };
     window.onmousedown = () => {
-      this.resetTemps();
+      if(this.counterInactivite > 0) {
+        this.resetTemps();
+      }
     };
   }
 
@@ -129,12 +199,15 @@ export class WebSocketService {
   {
     //sendMessage("active");
     if(this.isOpen) {
-      if(this.timer != null)
+      if(this.timer != null) {
         clearInterval(this.timer);
+      }
       this.counterInactivite = 0;
+      this.websocketApi.send('state : inactif?cpt=0');
+      console.log('reset (coll active)');
       this.timer = setInterval(() => {
-        //console.log('counter inactivite : ' + this.counterInactivite);
-          this.websocket.send('state : inactif?cpt='+this.counterInactivite);
+          console.log('counter inactivite : ' + this.counterInactivite);
+          this.websocketApi.send('state : inactif?cpt='+this.counterInactivite);
           this.counterInactivite++;
       }, 1000);
     }

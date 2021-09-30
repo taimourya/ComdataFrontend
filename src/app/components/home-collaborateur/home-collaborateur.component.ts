@@ -28,7 +28,6 @@ export class HomeCollaborateurComponent implements OnInit {
               private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
-    this.webSocketService.start();
 
     this.webSocketService.tempsSubject.subscribe(temps => {
       this.temps = temps;
@@ -37,6 +36,7 @@ export class HomeCollaborateurComponent implements OnInit {
     this.authService.fetchPauses().subscribe(data => {
       let datan: any = data;
       this.types = datan.content;
+      this.webSocketService.start(this.types);
     });
 
     let sub = this.webSocketService.isClosedSubject.subscribe(isClosed => {
