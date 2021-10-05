@@ -102,7 +102,7 @@ export class WebSocketService {
   public start(types: any) {
     if(!this.isOpen) {
 
-      let websocket = new WebSocket(Api.ws+'/ws');
+      let websocket = new WebSocket(Api.ws+"");
       this.websocketApi = websocket;
       this.websocketApi.onopen = () => {
         let token = this.authService.getToken();
