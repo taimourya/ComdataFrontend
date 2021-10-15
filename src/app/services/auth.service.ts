@@ -39,6 +39,7 @@ export class AuthService {
 
 
   login(matricule: string, password: string) {
+    console.log(Api.host);
     return this.http.post(Api.host + "/login",
       {
         'matricule': matricule,
